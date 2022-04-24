@@ -12,7 +12,7 @@ a.appendChild(article);
 
 const img = document.createElement('img');
 article.appendChild(img);
-img.join('imageUrl');
+
 
 
 
@@ -23,6 +23,7 @@ h3.classList.add('productName');
 const p = document.createElement('p');
 article.appendChild(p);
 p.classList.add('productDescription');
+
 
 
 
