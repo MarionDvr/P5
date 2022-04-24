@@ -12,7 +12,8 @@ a.appendChild(article);
 
 const img = document.createElement('img');
 article.appendChild(img);
-
+img.src = 'imageUrl';
+img.alt = 'altTxt';
 
 
 
