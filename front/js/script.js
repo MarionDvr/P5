@@ -1,15 +1,15 @@
 async function getProducts() { 
-  fetch("http://localhost:3000/api/products")
+  fetch('http://localhost:3000/api/products')
   .then(function(res) {
-    if (res.ok) {
-      return res.json();
+    if (response.ok) {
+      return response.json();
     }
   })
-  .then(function(Product) {
-    console.log(Product);
+  .then(function(Produits) {
+    console.log('Produits');
   })
-  .catch(function(err) {
-    // Une erreur est survenue
+  .catch(function(erreur) {
+    console.log('Une erreur est survenue' + erreur.message);
   });
 
 }
