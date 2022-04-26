@@ -7,7 +7,7 @@ async function getProducts() {
           return response.json();
     }
   })
-
+//Répartition des valeurs du tableau sur les élément HTML
   .then(function(Produits) {
       Produits.forEach(products =>  {
          
