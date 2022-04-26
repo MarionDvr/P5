@@ -2,18 +2,18 @@
 
 async function getProducts() { 
   fetch('http://localhost:3000/api/products')
+  
   .then(function(res) {
       if (response.ok) {
           return response.json();
+          
     }
   })
 //Répartition des valeurs du tableau sur les élément HTML
   .then(function(Produits) {
       Produits.forEach(products =>  {
-         
+          console.log('Produits');
           
-          
-
 // Création du lien
           let section = document.getElementById('items');
           let a = document.createElement('a');
@@ -42,7 +42,7 @@ async function getProducts() {
           p.classList.add('productDescription');
           p.innerText = products.description;
           
-          console.log('Produits');
+          
       });
     })
 
