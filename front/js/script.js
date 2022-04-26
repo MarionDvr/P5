@@ -1,16 +1,12 @@
 //Récuppération de l'API
-
-async function getProducts() { 
-  fetch('http://localhost:3000/api/products')
-  
+fetch('http://localhost:3000/api/products')
   .then(function(res) {
-      if (response.ok) {
-          return response.json();
-          
-    }
+      if (res.ok) {
+          return res.json();
+      }
   })
 //Répartition des valeurs du tableau sur les élément HTML
-  .then(function(Produits) {
+    .then(function(Produits) {
       Produits.forEach(products =>  {
           console.log('Produits');
           
@@ -24,17 +20,17 @@ async function getProducts() {
           let article = document.createElement('article');
           a.appendChild(article);
 
-//Création de l'image
+//Création de l'image 
           let img = document.createElement('img');
           article.appendChild(img);
           img.src = products.imageUrl;
-          img.alt = products.altTxt;
+          img.alt = products.altTxt; 
 
 //Création du titre
           let h3 = document.createElement('h3');
           article.appendChild(h3);
           h3.classList.add('productName');
-          h3.innerText = products.name; 
+          h3.innerHTML = products.name; 
 
 //Création de la description
           let p = document.createElement('p');
@@ -44,7 +40,7 @@ async function getProducts() {
           
           
       });
-    })
+    }) 
 
 //Affichage du message d'erreur
   .catch(function(erreur) {
@@ -52,7 +48,7 @@ async function getProducts() {
   });
   
 
-}
+
 
 
 
