@@ -14,7 +14,7 @@ fetch('http://localhost:3000/api/products')
           let section = document.getElementById('items');
           let a = document.createElement('a');
           section.appendChild(a);
-          a.href = products._id;
+          a.href = "./product.html?" + products._id;
 
 //Création de l'article
           let article = document.createElement('article');
