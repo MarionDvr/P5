@@ -1,24 +1,22 @@
 //Récuppération de l'API
-
-    fetch('http://localhost:3000/api/products')
-    
-    .then(function(res) {
-        if (res.ok) {
-            return res.json();
+fetch('http://localhost:3000/api/products')
+  .then(function(res) {
+      if (res.ok) {
+          return res.json();
       }
-    })
+  })
 
 //Répartition des valeurs du tableau sur les élément HTML concerant le canapé
-    .then(function(canapé) {
-        canapé.forEach(products =>  {
+    .then(function(canape) {
+        canape.forEach(products =>  {
             console.log('canapé');
 
 //Création de l'image dans la div
             let divImg = document.getElementById('item__img');
-            let img = document.createElement('img');
-            divImg.appendChild(img);
-            img.src = products.imageUrl;
-            img.alt = products.altTxt;
+            let image = document.createElement('image');
+            divImg.appendChild(image);
+            image.src = products.imageUrl;
+            image.alt = products.altTxt;
 
 //Remplissage du titre du produit
             let h1 = document.getElementById('title');
