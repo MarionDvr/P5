@@ -3,8 +3,8 @@ async function getProducts() {
     fetch('http://localhost:3000/api/products')
     
     .then(function(res) {
-        if (response.ok) {
-            return response.json();
+        if (res.ok) {
+            return res.json();
       }
     })
 
