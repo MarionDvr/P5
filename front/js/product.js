@@ -12,11 +12,11 @@ fetch('http://localhost:3000/api/products')
             console.log('canapé');
 
 //Création de l'image dans la div
-            let divImg = document.getElementById('item__img');
-            let image = document.createElement('image');
-            divImg.appendChild(image);
-            image.src = products.imageUrl;
-            image.alt = products.altTxt;
+            let divImg = document.getElementsByClassName('item__img');
+            let img = document.createElement('img');
+            divImg.appendChild(img);
+            img.src = products.imageUrl;
+            img.alt = products.altTxt;
 
 //Remplissage du titre du produit
             let h1 = document.getElementById('title');
@@ -37,8 +37,8 @@ fetch('http://localhost:3000/api/products')
                 products.forEach(colors => {
                     let couleur = document.createElement('option');
                     couleur.setAttribute("value", colors.color);
-                    couleur.innerText = colors.color;
                     couleur.appendChild(choisirCouleur);
+                    couleur.innerText = colors.color;
                 })
             
                 
