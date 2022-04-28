@@ -1,5 +1,5 @@
 //Récuppération de l'API
-async function getProducts() { 
+
     fetch('http://localhost:3000/api/products')
     
     .then(function(res) {
@@ -51,4 +51,4 @@ async function getProducts() {
 
     })
 
-}
+
