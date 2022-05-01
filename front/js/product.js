@@ -1,7 +1,8 @@
-//const id = window.location.search.split("?").join("");
-const id = '415b7cacb65d43b2b5c1ff70f3393ad1';
+//Récupération de l'id du produit
+const id = window.location.search.split("?").join("");
+
 //Récuppération de l'API
-fetch("http://localhost:3000/api/products" + "/" + id)
+fetch("http://localhost:3000/api/products")
     .then(function(res) {
         if (res.ok) {
             return res.json();
@@ -11,7 +12,8 @@ fetch("http://localhost:3000/api/products" + "/" + id)
 //Répartition des valeurs du tableau sur les élément HTML concerant le canapé
     .then(function(Canape) {
         Canape.forEach(products =>  {
-            console.log('canapé');
+            if (products._id == id) { 
+                
            
 //Création de l'image dans la div
             let divImg = document.getElementsByClassName('item__img');
@@ -47,6 +49,7 @@ fetch("http://localhost:3000/api/products" + "/" + id)
             
                 
             }
+        }
 
         
     );
