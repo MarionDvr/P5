@@ -1,20 +1,22 @@
+//const id = window.location.search.split("?").join("");
+const id = '415b7cacb65d43b2b5c1ff70f3393ad1';
 //Récuppération de l'API
-fetch('http://localhost:3000/api/products')
-  .then(function(res) {
-      if (res.ok) {
-          return res.json();
-      }
-  })
+fetch("http://localhost:3000/api/products" + "/" + id)
+    .then(function(res) {
+        if (res.ok) {
+            return res.json();
+        }
+    })
 
 //Répartition des valeurs du tableau sur les élément HTML concerant le canapé
-    .then(function(canape) {
-        canape.forEach(products =>  {
+    .then(function(Canape) {
+        Canape.forEach(products =>  {
             console.log('canapé');
-
+           
 //Création de l'image dans la div
             let divImg = document.getElementsByClassName('item__img');
             let img = document.createElement('img');
-            divImg.appendChild(img);
+            divImg[0].appendChild(img);
             img.src = products.imageUrl;
             img.alt = products.altTxt;
 
@@ -30,21 +32,23 @@ fetch('http://localhost:3000/api/products')
             let p =  document.getElementById('description');
             p.innerText = products.description;
 
+//Parent des balises option
+            let choisirCouleur = document.getElementById('colors');
 //Création des balise option pour les couleurs
-            let choisirCouleur = document.getElementById('');
 //Ajouter automatiquement le nombre de couleurs correspondantes
-            function Couleurs() {
-                products.forEach(colors => {
+            
+                products.colors.forEach(couleurs => {
                     let couleur = document.createElement('option');
-                    couleur.setAttribute("value", colors.color);
-                    couleur.appendChild(choisirCouleur);
-                    couleur.innerText = colors.color;
+                    couleur.value = couleurs.couleur;
+                    choisirCouleur.appendChild(couleur);
+                    couleur.innerHTML = couleurs.colors;
+                    
                 })
             
                 
             }
 
-        }
+        
     );
 
     })
