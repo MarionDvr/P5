@@ -40,10 +40,10 @@ fetch("http://localhost:3000/api/products")
 //Ajouter automatiquement le nombre de couleurs correspondantes
             
                 products.colors.forEach(couleurs => {
-                    let couleur = document.createElement('option');
-                    couleur.value = couleurs.couleur;
-                    choisirCouleur.appendChild(couleur);
-                    couleur.innerHTML = couleurs.colors;
+                    let baliseCouleur = document.createElement('option');
+                    choisirCouleur.appendChild(baliseCouleur);
+                    baliseCouleur.value = couleurs;
+                    baliseCouleur.innerHTML = couleurs;
                     
                 })
             
