@@ -46,14 +46,33 @@ fetch("http://localhost:3000/api/products")
                     baliseCouleur.innerHTML = couleurs;
                     
                 })
+//Ajout des listener pour le choix de couleur
+            let SelectColor = document.getElementById('colors');
+            SelectColor.addEventListener('select', function(event){
+                event.target.value;
             
-                
-            }
-        }
+            });
+//Ajout des listener pour le nombre 
+            let InputNumber = document.getElementById('quantity');
+            InputNumber.addEventListener('input', function(event){
+                event.target.value;
+            
+            });
 
+//Stockage des informations
+            let addToCart = document.getElementById('addToCart');
+            addToCart.addEventListener('click', addToCart);
+            addToCart.onclick = () => {
+                localStorage.setItem('id', id);
+                localStorage.setItem('Couleur', colors.value);
+                localStorage.setItem('Nombre', quantity.value);
+            }
         
-    );
+   
+    }
 
     })
+
+})
 
 
