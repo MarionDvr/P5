@@ -58,14 +58,17 @@ fetch("http://localhost:3000/api/products")
                 event.target.value;
             
             });
+//Création du tableau pour le local storage
 
 //Stockage des informations
             let addToCart = document.getElementById('addToCart');
             addToCart.addEventListener('click', addToCart);
             addToCart.onclick = () => {
+            
                 localStorage.setItem('id', id);
                 localStorage.setItem('Couleur', colors.value);
                 localStorage.setItem('Nombre', quantity.value);
+                
             }
         
    
