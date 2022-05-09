@@ -58,24 +58,71 @@ fetch("http://localhost:3000/api/products")
                 event.target.value;
             
             });
-//Création du tableau pour le local storage
 
-//Stockage des informations
+
+
             let addToCart = document.getElementById('addToCart');
             addToCart.addEventListener('click', addToCart);
             addToCart.onclick = () => {
-            
-                localStorage.setItem('id', id);
-                localStorage.setItem('Couleur', colors.value);
-                localStorage.setItem('Nombre', quantity.value);
+                let idColor = id + colors.value;
+                let Quantite = quantity.value;
+                localStorage.setItem('IdColor', idColor);
+                localStorage.setItem('Nombre', Quantite);
+//Stockage des informations
+                let produitSelectionne = {
+                idProduit: id,
+                CouleurProduit: colors.value,
+                QuantiteProduit: quantity.value
+            };
+//Voir si il y a déjà des données dans le local storage -- Récupération du tableau
+                let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
                 
+//Fonction pour la popup de confirmation
+                const popupConfirmation = () =>{
+                
+                    if(window.confirm( `Vous avez ajouté au panier ${quantity.value}  ${products.name} de couleur ${colors.value} 
+                    Consulter le panier ok ou revenir à l'accueil annuler `)) {
+                    window.location.href = "cart.html";
+                    } else{
+                    window.location.href = "index.html";
+                    }
+                } 
+//Fonction ajouter produit sélectionné dans le local storage
+                function ajoutProduitLocalStorage() {
+                //Ajout du produit selectionné dans le tableau DonneesLocalStorage
+                    DonneesLocalStorage.push(produitSelectionne);
+                //La transformation en format JSON de la clef produit du local storage
+                    localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+                }
+//Voir si il y a déjà des données dans le local storage
+            if(DonneesLocalStorage){
+                ajoutProduitLocalStorage();
+                popupConfirmation();
             }
+//si il n'y a pas de produits déjà enregistré dans le LocalStorage
+            else {
+                DonneesLocalStorage =[];
+                ajoutProduitLocalStorage();
+                popupConfirmation();
+            }
+
+             
+
+            
+               
+            }
+            
+            
+            
         
-   
+        
+
+    
+
+    
+
     }
 
     })
 
 })
-
-
