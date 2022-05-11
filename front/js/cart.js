@@ -1,3 +1,17 @@
+//Récupération du local storage
+//Voir si il y a déjà des données dans le local storage -- Récupération du tableau et transformation en js
+let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
+        
+//si le panier est vide
+if(DonneesLocalStorage === null){
+    const title = document.querySelector("h1");
+    title.innerHTML = "Le panier est vide !";
+}else {
+//si le panier n'est pas vide afficher chaque produit du local Storage
+DonneesLocalStorage.forEach(produit => {
+let idKanap = DonneesLocalStorage.idProduit;
+
+    
 //Récupération de l'API
 fetch("http://localhost:3000/api/products")
     .then(function(res) {
@@ -10,23 +24,7 @@ fetch("http://localhost:3000/api/products")
 
      .then(function(products) {
         
-            
-//Récupération du local storage
-//Voir si il y a déjà des données dans le local storage -- Récupération du tableau et transformation en js
-        let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
         
-        //si le panier est vide
-        if(DonneesLocalStorage === null){
-            const title = document.querySelector("h1");
-            title.innerHTML = "Le panier est vide !";
-        }else {
-        //si le panier n'est pas vide afficher chaque produit du local Storage
-        DonneesLocalStorage.forEach(produit => {
-        let idKanap = DonneesLocalStorage.idProduit;
-        if (products._id == idKanap) { 
-            
-
-
 //Création de l'article
         let sectionCartItems = document.getElementById('cart__items');
         let article = document.createElement('article');
@@ -85,7 +83,10 @@ fetch("http://localhost:3000/api/products")
         let inputItemQuantity = document.createElement('input');
         inputItemQuantity.classList.add('itemQuantity');
         divItemsSettingsQuantity.appendChild(inputItemQuantity);
-        inputItemQuantity.innerHTML = produit.QuantiteProduit;
+        inputItemQuantity.dataset.name = 'itemQuantity';
+        inputItemQuantity.dataset.min = '1';
+        inputItemQuantity.dataset.max = '100';
+        inputItemQuantity.value = produit.QuantiteProduit;
 
         //Création de la suppression
         //div enfant 2
@@ -97,12 +98,14 @@ fetch("http://localhost:3000/api/products")
         pDelete.classList.add('deleteItem');
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
-    } 
-    }) 
+   
+   
   
-}
-          
 
- 
-
+  
+    
 })
+}) 
+} 
+
+
