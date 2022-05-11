@@ -7,16 +7,27 @@ fetch("http://localhost:3000/api/products")
     })
 
 //Répartition des valeurs du tableau sur les élément HTML concerant le canapé
-    .then(function(Canape) {
-        Canape.forEach(products =>  {
+
+     .then(function(products) {
+        
             
 //Récupération du local storage
-            productID = localStorage.getItem('id');
-            productColor = localStorage.getItem('Couleur');
-            ChoixQuantité = localStorage.getItem('Nombre');
+//Voir si il y a déjà des données dans le local storage -- Récupération du tableau et transformation en js
+        let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
+        
+        //si le panier est vide
+        if(DonneesLocalStorage === null){
+            const title = document.querySelector("h1");
+            title.innerHTML = "Le panier est vide !";
+        }else {
+        //si le panier n'est pas vide afficher chaque produit du local Storage
+        DonneesLocalStorage.forEach(produit => {
+        let idKanap = DonneesLocalStorage.idProduit;
+        if (products._id == idKanap) { 
+            
 
 
-        //Création de l'article
+//Création de l'article
         let sectionCartItems = document.getElementById('cart__items');
         let article = document.createElement('article');
         article.classList.add('cart__item');
@@ -50,17 +61,19 @@ fetch("http://localhost:3000/api/products")
         //Couleur
         let pColor = document.createElement('p');
         divItemDescription.appendChild(pColor);
-        pColor.innerHTML = productColor;
+        pColor.innerHTML = produit.CouleurProduit;
         //Prix
         let pPrice = document.createElement('p');
         divItemDescription.appendChild(pPrice);
-        pPrice.innerHTML = products.price;
+        pPrice.innerHTML = products.Prix;
 
         //Création de la div contenant la quantité et la suppression
         //div parent
         let divItemSettings = document.createElement('div');
         divItemSettings.classList.add('cart__item__content__settings');
         article.appendChild(divItemSettings);
+
+
         //Création de la div contenant la quantité - div enfant 1
         let divItemsSettingsQuantity = document.createElement('div');
         divItemsSettingsQuantity.classList.add('cart__item__content__settings__quantity');
@@ -72,21 +85,24 @@ fetch("http://localhost:3000/api/products")
         let inputItemQuantity = document.createElement('input');
         inputItemQuantity.classList.add('itemQuantity');
         divItemsSettingsQuantity.appendChild(inputItemQuantity);
-        inputItemQuantity.innerHTML = ChoixQuantité;
+        inputItemQuantity.innerHTML = produit.QuantiteProduit;
 
         //Création de la suppression
         //div enfant 2
         let divItemDelete = document.createElement('div');
         divItemDelete.classList.add('cart__item__content__settings__delete');
-        divItemSetting.appendChild(divItemDelete);
+        //divItemSetting.appendChild(divItemDelete);
         //Paragraphe
         let pDelete = document.createElement('p');
         pDelete.classList.add('deleteItem');
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
+    } 
+    }) 
+  
+}
+          
 
-        }   
-
-    )
+ 
 
 })
