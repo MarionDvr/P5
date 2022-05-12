@@ -64,15 +64,18 @@ fetch("http://localhost:3000/api/products")
             let addToCart = document.getElementById('addToCart');
             addToCart.addEventListener('click', addToCart);
             addToCart.onclick = () => {
-                let idColor = id + colors.value;
+               /* let idColor = id + colors.value;
                 let Quantite = quantity.value;
                 localStorage.setItem('IdColor', idColor);
-                localStorage.setItem('Nombre', Quantite);
+                localStorage.setItem('Nombre', Quantite);*/
+// Création variables pour le tableau
+                let productColor = colors.value;
+                let productQuantity = quantity.value;
 //Stockage des informations
                 let produitSelectionne = {
                 idProduit: id,
-                CouleurProduit: colors.value,
-                QuantiteProduit: quantity.value
+                CouleurProduit: productColor,
+                QuantiteProduit: productQuantity
             };
 //Voir si il y a déjà des données dans le local storage -- Récupération du tableau
                 let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
@@ -80,7 +83,7 @@ fetch("http://localhost:3000/api/products")
 //Fonction pour la popup de confirmation
                 const popupConfirmation = () =>{
                 
-                    if(window.confirm( `Vous avez ajouté au panier ${quantity.value}  ${products.name} de couleur ${colors.value} 
+                    if(window.confirm( `Vous avez ajouté au panier ${productQuantity}  ${products.name} de couleur ${productColor} 
                     Consulter le panier ok ou revenir à l'accueil annuler `)) {
                     window.location.href = "cart.html";
                     } else{
@@ -89,14 +92,17 @@ fetch("http://localhost:3000/api/products")
                 } 
 //Fonction ajouter produit sélectionné dans le local storage
                 function ajoutProduitLocalStorage() {
-                //Ajout du produit selectionné dans le tableau DonneesLocalStorage
+
+//Ajout du produit selectionné dans le tableau DonneesLocalStorage
                     DonneesLocalStorage.push(produitSelectionne);
-                //La transformation en format JSON de la clef produit du local storage
+//La transformation en format JSON de la clef produit du local storage
                     localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+                    
                 }
 //Voir si il y a déjà des données dans le local storage
             if(DonneesLocalStorage){
                 ajoutProduitLocalStorage();
+//
                 popupConfirmation();
             }
 //si il n'y a pas de produits déjà enregistré dans le LocalStorage
@@ -105,22 +111,7 @@ fetch("http://localhost:3000/api/products")
                 ajoutProduitLocalStorage();
                 popupConfirmation();
             }
-
-             
-
-            
-               
-            }
-            
-            
-            
-        
-        
-
-    
-
-    
-
+        }
     }
 
     })

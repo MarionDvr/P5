@@ -23,6 +23,8 @@ fetch("http://localhost:3000/api/products")
 //Répartition des valeurs du tableau sur les élément HTML concerant le canapé
 
      .then(function(products) {
+        //Canape.forEach(products =>  {
+            //if (products._id == idKanap) { 
         
         
 //Création de l'article
@@ -79,6 +81,7 @@ fetch("http://localhost:3000/api/products")
         // paragraphe
         let pQuantité = document.createElement('p');
         divItemsSettingsQuantity.appendChild(pQuantité);
+        pQuantité.innerHTML = 'Qté :';
         //input
         let inputItemQuantity = document.createElement('input');
         inputItemQuantity.classList.add('itemQuantity');
@@ -92,20 +95,41 @@ fetch("http://localhost:3000/api/products")
         //div enfant 2
         let divItemDelete = document.createElement('div');
         divItemDelete.classList.add('cart__item__content__settings__delete');
-        //divItemSetting.appendChild(divItemDelete);
+        divItemSettings.appendChild(divItemDelete);
         //Paragraphe
         let pDelete = document.createElement('p');
         pDelete.classList.add('deleteItem');
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
    
-   
-  
 
+/*
+//Suppression article
+        for (let i = O; i < pDelete.length; i++){
+                pDelete[i].addEventListener('click', pDelete);
+                pDelete[i].onclick = () => {
+//Selection de l'id qui va être suprimé  
+                    let idASupprimer = DonneesLocalStorage[i].idProduit;
+//Filtrer --> Selectionner des données d'un tableau à partir d'une condition
+//Filtrer les données du tableau localStorage 
+                    DonneesLocalStorage = DonneesLocalStorage.filter(element => element.idProduit !== idASupprimer);
+// Renvoyer les données dans le local storage
+                    localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+//Alerte pour dire que le produit a été supprimer et rechargement de la page
+                    alert("Le produit a été supprimé");
+                    window.location.href = "cart.js";
+                }
+        }
+*/
+   
+     //}
+    })
+        
+    //})
   
     
 })
-}) 
 } 
+ 
 
 
