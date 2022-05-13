@@ -62,12 +62,8 @@ fetch("http://localhost:3000/api/products")
 
 
             let addToCart = document.getElementById('addToCart');
-            addToCart.addEventListener('click', addToCart);
-            addToCart.onclick = () => {
-               /* let idColor = id + colors.value;
-                let Quantite = quantity.value;
-                localStorage.setItem('IdColor', idColor);
-                localStorage.setItem('Nombre', Quantite);*/
+            addToCart.addEventListener('click', function() {
+            
 // Création variables pour le tableau
                 let productColor = colors.value;
                 let productQuantity = quantity.value;
@@ -80,16 +76,8 @@ fetch("http://localhost:3000/api/products")
 //Voir si il y a déjà des données dans le local storage -- Récupération du tableau
                 let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
                 
-//Fonction pour la popup de confirmation
-                const popupConfirmation = () =>{
+
                 
-                    if(window.confirm( `Vous avez ajouté au panier ${productQuantity}  ${products.name} de couleur ${productColor} 
-                    Consulter le panier ok ou revenir à l'accueil annuler `)) {
-                    window.location.href = "cart.html";
-                    } else{
-                    window.location.href = "index.html";
-                    }
-                } 
 //Fonction ajouter produit sélectionné dans le local storage
                 function ajoutProduitLocalStorage() {
 
@@ -102,17 +90,17 @@ fetch("http://localhost:3000/api/products")
 //Voir si il y a déjà des données dans le local storage
             if(DonneesLocalStorage){
                 ajoutProduitLocalStorage();
-//
-                popupConfirmation();
+
             }
 //si il n'y a pas de produits déjà enregistré dans le LocalStorage
             else {
                 DonneesLocalStorage =[];
                 ajoutProduitLocalStorage();
-                popupConfirmation();
+               
             }
-        }
-    }
+        })
+    
+            }
 
     })
 
