@@ -101,25 +101,78 @@ fetch("http://localhost:3000/api/products")
         pDelete.classList.add('deleteItem');
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
-   
+        //Total des article
+        //let totalQuantity = document.getElementsById('totalQuantity');
+        //totalQuantity.innerHTML = ;
+        //let totalPrice = document.getElementById('totalPrice');
+        //totalPrice.innerHTML = ;
 
-/*
-//Suppression article -- ne fonctionne pas
-        for (let i = O; i < pDelete.length; i++){
-                pDelete[i].addEventListener('click', pDelete);
-                pDelete[i].onclick = () => {
+//------------------------------Regexp Formulaire--------------------------------------------------
+//Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
+        let form = document.querySelector('.cart__order__form');
+/*//écouter l'input prénom
+        form.firstName.addEventListener('change', function(){
+//this fait référence à l'input de firstName
+                validFirstName(this);
+        });
+    const validFirstName = function(inputFirstName){};
+*/
+
+//écouter l'input email
+        form.email.addEventListener('change', function() {
+            validEmail(this);
+        });
+//Fonction avec la regexp pour valider l'email
+        const validEmail = function (inputEmail){
+//Création de la regExp -- Eplication regexp :
+// ^ = le début [a-zA-Z0-9.-_]+ = les caractères acceptés (avant le @) : a jusqu'à z en minuscules, puis en majuscule, puis les chiffres de 0 à 9, puis des points, des tirets, des underscore. Et le + c'est pour dire que ces caractères acceptés peuvent être seuls ou plusieurs.
+//[@] = caractères acceptés @ {1} = un seul @
+//[a-zA-Z0-9.-_]+ = Même chose qu'au début
+//[.]{1} = caractère accepté :  un seul point
+//[a-z]{2-3} = caractères acceptés : des minuscules de a à z au nombre de 2 ou 3
+//$ = la fin
+//g = de manière global
+            let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2-3}$', 'g');
+            let testEmail = emailRegExp.test(inputEmail.value);
+//Variable pour écrire une message de validation ou d'erreur
+            let emailErrorMsg = inputEmail.nextElementSibling;
+//Si testEmail est vrai
+            if (testEmail){
+                emailErrorMsg.innerHTML = 'Adresse valide';
+            } else {
+                emailErrorMsg.innerHTML = "L'adresse email n'est pas valide";
+            }
+}
+
+
+/*// -----------------------------TOTAL ARTICLE -------------------------------------------------
+//Variable Pour mettre les prix des produit qui sont dans le panier
+let prixTotalCalcul = [];
+//Aller chercher les prix dans le panier
+for (let n = 0; n < DonneesLocalStorage.length; n++){
+    
+}*/
+   
+//----------------Suppression article---------------------------
+
+/*//Suppression article -- ne fonctionne pas
+        for (let i = 0; i < pDelete.length; i++){
+                pDelete[i].addEventListener('click', function() {
+                    alert('ici'); //le bnt supprimer ne marche pas
+               
 //Selection de l'id qui va être suprimé  
                     let idASupprimer = DonneesLocalStorage[i].idProduit;
-//Filtrer --> Selectionner des données d'un tableau à partir d'une condition
+//Filter --> Selectionner des données d'un tableau à partir d'une condition
 //Filtrer les données du tableau localStorage 
                     DonneesLocalStorage = DonneesLocalStorage.filter(element => element.idProduit !== idASupprimer);
+                    
 // Renvoyer les données dans le local storage
                     localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
 //Alerte pour dire que le produit a été supprimer et rechargement de la page
                     alert("Le produit a été supprimé");
                     window.location.href = "cart.js";
+                })
                 }
-        }
 */
    
      }
