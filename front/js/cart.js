@@ -1,7 +1,7 @@
 //Récupération du local storage
-//Voir si il y a déjà des données dans le local storage -- Récupération du tableau et transformation en js
+//Récupération du tableau et transformation en js
 let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
-        
+
 //si le panier est vide
 if(DonneesLocalStorage === null){
     const title = document.querySelector("h1");
@@ -9,7 +9,7 @@ if(DonneesLocalStorage === null){
 }else {
 //si le panier n'est pas vide afficher chaque produit du local Storage
 DonneesLocalStorage.forEach(produit => {
-let idKanap = DonneesLocalStorage.idProduit;
+let idKanap = produit.idProduit;
 
     
 //Récupération de l'API
@@ -22,9 +22,9 @@ fetch("http://localhost:3000/api/products")
 
 //Répartition des valeurs du tableau sur les élément HTML concerant le canapé
 
-     .then(function(products) {
-        //Canape.forEach(products =>  {
-            //if (products._id == idKanap) { 
+     .then(function(Canape) {
+        Canape.forEach(products =>  {
+            if (products._id == idKanap) { 
         
         
 //Création de l'article
@@ -65,7 +65,7 @@ fetch("http://localhost:3000/api/products")
         //Prix
         let pPrice = document.createElement('p');
         divItemDescription.appendChild(pPrice);
-        pPrice.innerHTML = products.Prix;
+        pPrice.innerHTML = products.price + '€';
 
         //Création de la div contenant la quantité et la suppression
         //div parent
@@ -104,7 +104,7 @@ fetch("http://localhost:3000/api/products")
    
 
 /*
-//Suppression article
+//Suppression article -- ne fonctionne pas
         for (let i = O; i < pDelete.length; i++){
                 pDelete[i].addEventListener('click', pDelete);
                 pDelete[i].onclick = () => {
@@ -122,10 +122,10 @@ fetch("http://localhost:3000/api/products")
         }
 */
    
-     //}
+     }
     })
         
-    //})
+})
   
     
 })
