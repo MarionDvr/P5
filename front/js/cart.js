@@ -110,20 +110,79 @@ fetch("http://localhost:3000/api/products")
 //------------------------------Regexp Formulaire--------------------------------------------------
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
         let form = document.querySelector('.cart__order__form');
-/*//écouter l'input prénom
-        form.firstName.addEventListener('change', function(){
+
+  
+//------------------------------Regexp PRENOM --------------------------------------------------
+//écouter l'input PRÉNOM
+        form.firstName.addEventListener('change', function() {
 //this fait référence à l'input de firstName
                 validFirstName(this);
         });
-    const validFirstName = function(inputFirstName){};
-*/
+//Fonction avec la regexp pour valider le prénom
+    const validFirstName = function(inputFirstName){
+        let firstnameRegExp = new RegExp('^[A-Za-z-]{3,}$', 'g');
+        let testFirstName = firstnameRegExp.test(inputFirstName.value);
+//Variable pour écrire une message de validation ou d'erreur
+        let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
+        
+//Si testPrénom est vrai = adresse valide
+        if (testFirstName){
+        firstNameErrorMsg.innerHTML = '';
+//Sinon = adressse invalide                       
+        } else {
+        firstNameErrorMsg.innerHTML = "Le prénom n'est pas valide";
+        }
+    }
+//------------------------------Regexp NOM --------------------------------------------------
+//écouter l'input NOM
+        form.lastName.addEventListener('change', function() {
+   
+                    validLastName(this);
+        });
+    //Fonction avec la regexp pour valider le nom 
+        const validLastName = function(inputLastName){
+            let lastnameRegExp = new RegExp('^[A-Za-z-]+$', 'g');
+            let testLastName = lastnameRegExp.test(inputLastName.value);
+    //Variable pour écrire une message de validation ou d'erreur
+            let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
+            
+    //Si testPrénom est vrai = adresse valide
+            if (testLastName){
+            lastNameErrorMsg.innerHTML = '';
+    //Sinon = adressse invalide                       
+            } else {
+            lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
+            }
+        }
+//------------------------------Regexp Adresse --------------------------------------------------
+//écouter l'input NOM
+    form.address.addEventListener('change', function() {
 
+            validAddress(this);
+        });
+    //Fonction avec la regexp pour valider le nom et prénom
+        const validAddress = function(inputAdress){ 
+//Explication regExp : ensemble quelconque de chiffre suivit éventuellement d'un espace suivit d'un ensemble quelconque de lettres espaces virgules ou points suivit éventuellement d'un espace
+            let adressRegExp = new RegExp('^([0-9]) ?([a-zA-Z,\. ]) ?$', 'g');
+            let testAdress = adressRegExp.test(inputAdress.value);
+    //Variable pour écrire une message de validation ou d'erreur
+            let adressErrorMsg = document.getElementById('adressErrorMsg');
+            
+    //Si testPrénom est vrai = adresse valide
+            if (testAdress){
+                adressErrorMsg.innerHTML = '';
+    //Sinon = adressse invalide                       
+            } else {
+                adressErrorMsg.innerHTML = "L'adresse n'est pas valide";
+            }
+        }
+//------------------------------Regexp Email --------------------------------------------------
 //écouter l'input email
         form.email.addEventListener('change', function() {
             validEmail(this);
         });
 //Fonction avec la regexp pour valider l'email
-        const validEmail = function (inputEmail){
+        const validEmail = function(inputEmail){
 //Création de la regExp -- Eplication regexp :
 // ^ = le début [a-zA-Z0-9.-_]+ = les caractères acceptés (avant le @) : a jusqu'à z en minuscules, puis en majuscule, puis les chiffres de 0 à 9, puis des points, des tirets, des underscore. Et le + c'est pour dire que ces caractères acceptés peuvent être seuls ou plusieurs.
 //[@] = caractères acceptés @ {1} = un seul @
@@ -138,7 +197,7 @@ fetch("http://localhost:3000/api/products")
             let emailErrorMsg = inputEmail.nextElementSibling;
 //Si testEmail est vrai
             if (testEmail){
-                emailErrorMsg.innerHTML = 'Adresse valide';
+                emailErrorMsg.innerHTML = '';
             } else {
                 emailErrorMsg.innerHTML = "L'adresse email n'est pas valide";
             }
@@ -176,9 +235,10 @@ for (let n = 0; n < DonneesLocalStorage.length; n++){
 */
    
      }
-    })
-        
 })
+        
+}
+)
   
     
 })
