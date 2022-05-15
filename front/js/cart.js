@@ -123,7 +123,7 @@ fetch("http://localhost:3000/api/products")
         let firstnameRegExp = new RegExp('^[A-Za-z-]{3,}$', 'g');
         let testFirstName = firstnameRegExp.test(inputFirstName.value);
 //Variable pour écrire une message de validation ou d'erreur
-        let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
+        let firstNameErrorMsg = inputFirstName.nextElementSibling;
         
 //Si testPrénom est vrai = adresse valide
         if (testFirstName){
@@ -144,9 +144,9 @@ fetch("http://localhost:3000/api/products")
             let lastnameRegExp = new RegExp('^[A-Za-z-]+$', 'g');
             let testLastName = lastnameRegExp.test(inputLastName.value);
     //Variable pour écrire une message de validation ou d'erreur
-            let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
+            let lastNameErrorMsg = inputLastName.nextElementSibling;
             
-    //Si testPrénom est vrai = adresse valide
+    //Si test est vrai = adresse valide
             if (testLastName){
             lastNameErrorMsg.innerHTML = '';
     //Sinon = adressse invalide                       
@@ -159,23 +159,44 @@ fetch("http://localhost:3000/api/products")
     form.address.addEventListener('change', function() {
 
             validAddress(this);
-        });
-    //Fonction avec la regexp pour valider le nom et prénom
-        const validAddress = function(inputAdress){ 
+    });
+//Fonction avec la regexp pour valider le nom et prénom
+    const validAddress = function(inputAdress){ 
 //Explication regExp : ensemble quelconque de chiffre suivit éventuellement d'un espace suivit d'un ensemble quelconque de lettres espaces virgules ou points suivit éventuellement d'un espace
-            let adressRegExp = new RegExp('^([0-9]) ?([a-zA-Z,\. ]) ?$', 'g');
-            let testAdress = adressRegExp.test(inputAdress.value);
-    //Variable pour écrire une message de validation ou d'erreur
-            let adressErrorMsg = document.getElementById('adressErrorMsg');
+        let adressRegExp = new RegExp('^([0-9]) ?([a-zA-Z,\. ]) ?$', 'g');
+        let testAdress = adressRegExp.test(inputAdress.value);
+//Variable pour écrire une message de validation ou d'erreur
+        let adressErrorMsg = inputAdress.nextElementSibling;
             
-    //Si testPrénom est vrai = adresse valide
-            if (testAdress){
-                adressErrorMsg.innerHTML = '';
-    //Sinon = adressse invalide                       
-            } else {
-                adressErrorMsg.innerHTML = "L'adresse n'est pas valide";
-            }
+//Si test est vrai = adresse valide
+        if (testAdress){
+            adressErrorMsg.innerHTML = '';
+//Sinon = adressse invalide                       
+        } else {
+            adressErrorMsg.innerHTML = "L'adresse n'est pas valide";
         }
+    }
+//------------------------------Regexp VILLE --------------------------------------------------
+//écouter l'input ville
+form.city.addEventListener('change', function() {
+   
+    validCity(this);
+});
+//Fonction avec la regexp pour valider la ville 
+const validCity = function(inputCity){
+    let cityRegExp = new RegExp('^[A-Za-z-]{1,40}$', 'g');
+    let testCity = cityRegExp.test(inputCity.value);
+//Variable pour le message d'erreur
+    let cityErrorMsg = inputCity.nextElementSibling;
+
+    //Si test est vrai = adresse valide
+    if (testCity){
+        cityErrorMsg.innerHTML = '';
+    //Sinon = adressse invalide                       
+    } else {
+        cityErrorMsg.innerHTML = "La ville n'est pas valide";
+    }
+}
 //------------------------------Regexp Email --------------------------------------------------
 //écouter l'input email
         form.email.addEventListener('change', function() {
