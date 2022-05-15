@@ -101,11 +101,26 @@ fetch("http://localhost:3000/api/products")
         pDelete.classList.add('deleteItem');
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
-        //Total des article
-        //let totalQuantity = document.getElementsById('totalQuantity');
-        //totalQuantity.innerHTML = ;
-        //let totalPrice = document.getElementById('totalPrice');
-        //totalPrice.innerHTML = ;
+// -----------------------Total des articles ---------------------------------
+//Tableau pour contenir tous les prix
+        let prixTotalCalcul = [];
+//Aller chercher les prix
+        for(let n = 0; n < DonneesLocalStorage.length; n++){
+            let PrixProduits = products.price;
+//Mettre les prix dans prisTotalCalcul
+            prixTotalCalcul.push(PrixProduits);
+        }
+//Additionner les prix du tableau avec reduce
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        const prixTotal = prixTotalCalcul.reduce(reducer);
+
+
+        //Total des articles
+        let totalQuantityProduits = prixTotalCalcul.length;
+        let totalQuantity = document.getElementById('totalQuantity');
+        totalQuantity.innerHTML = totalQuantityProduits;
+        let totalPrice = document.getElementById('totalPrice');
+        totalPrice.innerHTML = prixTotal;
 
 //------------------------------Regexp Formulaire--------------------------------------------------
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
