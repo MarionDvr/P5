@@ -264,23 +264,6 @@ const validCity = function(inputCity){
 }
 
    
-
-
-/*
-               
-//
-//Filter --> Selectionner des données d'un tableau à partir d'une condition
-//Filtrer les données du tableau localStorage 
-                    DonneesLocalStorage = DonneesLocalStorage.filter(element => element.idProduit !== idASupprimer);
-                    
-// Renvoyer les données dans le local storage
-                    localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
-//Alerte pour dire que le produit a été supprimer et rechargement de la page
-                    alert("Le produit a été supprimé");
-                    window.location.href = "cart.js";
-                })
-                }
-*/
    
      }
 })
