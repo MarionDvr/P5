@@ -60,35 +60,55 @@ fetch("http://localhost:3000/api/products")
             });
 
 
-
+//Trouver le bouton et l'écouter
             let addToCart = document.getElementById('addToCart');
             addToCart.addEventListener('click', function() {
             
 // Création variables pour le tableau
                 let productColor = colors.value;
                 let productQuantity = quantity.value;
+                
+//--------------------------------- Tableau ----------------------------------------------------------
 //Stockage des informations
                 let produitSelectionne = {
                 idProduit: id,
                 CouleurProduit: productColor,
-                QuantiteProduit: productQuantity
+                QuantiteProduit: productQuantity,
+                idCouleur: id + productColor
             };
-//Voir si il y a déjà des données dans le local storage -- Récupération du tableau
+//--------------------------Probléme quantité couleur --------------------------------------------- 
+            //function quantiteCouleur() {
+//Récupération du tableau
                 let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
-                
+/*//Si le tableau n'est pas vide
+                if(DonneesLocalStorage != null) {
+//Parcourir le tableau
+                    for (i=0 ; i < DonneesLocalStorage.length; i++){
+//Si le produit est déjà dans le tableau. 
+                        if(DonneesLocalStorage[i].idCouleur == produitSelectionne.idCouleur){
+//Gérer sa quantité
+                         DonneesLocalStorage.productQuantity = DonneesLocalStorage[i].productQuantity + InputNumber.value;
+                           
+                        }
+                    }
+                }
+            }
+*/
 
+            
                 
 //Fonction ajouter produit sélectionné dans le local storage
-                function ajoutProduitLocalStorage() {
-
+            function ajoutProduitLocalStorage() {
+                
 //Ajout du produit selectionné dans le tableau DonneesLocalStorage
-                    DonneesLocalStorage.push(produitSelectionne);
+                DonneesLocalStorage.push(produitSelectionne);
 //La transformation en format JSON de la clef produit du local storage
-                    localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+                localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
                     
-                }
+            }
 //Voir si il y a déjà des données dans le local storage
             if(DonneesLocalStorage){
+                //quantiteCouleur();
                 ajoutProduitLocalStorage();
 
             }
