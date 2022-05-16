@@ -128,15 +128,15 @@ let deleteItem = document.querySelectorAll('.deleteItem');
 //Parcourir les différents bouton supprimer
 for(let i = 0; i < pDelete.length; i++){
 //Ecouter le texte "supprimer"   
-    deleteItem[0].addEventListener('click', (event) => {
+    deleteItem[i].addEventListener('click', (event) => {
 //Selection de l'id du produit qui va être supprimé
-    let idASupprimer = DonneesLocalStorage.idProduit;
+    let idASupprimer = DonneesLocalStorage[i].idProduit;
    
-//Supprimer avec filter
+//Supprimer avec filter - methode 1
     DonneesLocalStorage = DonneesLocalStorage.filter(element => element.idProduit !== idASupprimer);        
 
 
-//Suppression de l'article une fois
+//Suppression de l'article une fois - methode 2
  //       DonneesLocalStorage.splice(i, 1);
 //On envoye le résultat dans le localStorage
         localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
