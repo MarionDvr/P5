@@ -115,12 +115,36 @@ fetch("http://localhost:3000/api/products")
         const prixTotal = prixTotalCalcul.reduce(reducer);
 
 
-        //Total des articles
+        //Total des articles - Affichage
         let totalQuantityProduits = prixTotalCalcul.length;
         let totalQuantity = document.getElementById('totalQuantity');
         totalQuantity.innerHTML = totalQuantityProduits;
         let totalPrice = document.getElementById('totalPrice');
         totalPrice.innerHTML = prixTotal;
+
+/*//----------------Suppression article--------------------------- 
+let deleteItem = document.querySelectorAll('.deleteItem');
+
+//Parcourir les différents bouton supprimer
+for(let i = 0; i < pDelete.length; i++){
+//Ecouter le texte "supprimer"   
+    deleteItem[0].addEventListener('click', (event) => {
+//Selection de l'id du produit qui va être supprimé
+    let idASupprimer = DonneesLocalStorage.idProduit;
+   
+//Supprimer avec filter
+    DonneesLocalStorage = DonneesLocalStorage.filter(element => element.idProduit !== idASupprimer);        
+
+
+//Suppression de l'article une fois
+ //       DonneesLocalStorage.splice(i, 1);
+//On envoye le résultat dans le localStorage
+        localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+//Rechergement de la page
+        window.location.href = 'cart.html';
+
+    })
+}*/
 
 //------------------------------Regexp Formulaire--------------------------------------------------
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
@@ -239,24 +263,12 @@ const validCity = function(inputCity){
             }
 }
 
-
-/*// -----------------------------TOTAL ARTICLE -------------------------------------------------
-//Variable Pour mettre les prix des produit qui sont dans le panier
-let prixTotalCalcul = [];
-//Aller chercher les prix dans le panier
-for (let n = 0; n < DonneesLocalStorage.length; n++){
-    
-}*/
    
-//----------------Suppression article---------------------------
 
-/*//Suppression article -- ne fonctionne pas
-        for (let i = 0; i < pDelete.length; i++){
-                pDelete[i].addEventListener('click', function() {
-                    alert('ici'); //le bnt supprimer ne marche pas
+
+/*
                
-//Selection de l'id qui va être suprimé  
-                    let idASupprimer = DonneesLocalStorage[i].idProduit;
+//
 //Filter --> Selectionner des données d'un tableau à partir d'une condition
 //Filtrer les données du tableau localStorage 
                     DonneesLocalStorage = DonneesLocalStorage.filter(element => element.idProduit !== idASupprimer);
