@@ -65,9 +65,9 @@ fetch("http://localhost:3000/api/products")
             addToCart.addEventListener('click', function() {
             
 // Création variables pour le tableau
-                let productColor = colors.value;
-                let productQuantity = quantity.value;
-                
+                let productColor = SelectColor.value;
+                let productQuantity = InputNumber.value;
+               
 //--------------------------------- Tableau ----------------------------------------------------------
 //Stockage des informations
                 let produitSelectionne = {
@@ -76,24 +76,28 @@ fetch("http://localhost:3000/api/products")
                 QuantiteProduit: productQuantity,
                 idCouleur: id + productColor
             };
-//--------------------------Probléme quantité couleur --------------------------------------------- 
-            //function quantiteCouleur() {
 //Récupération du tableau
-                let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
-/*//Si le tableau n'est pas vide
+let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
+
+//--------------------------Probléme quantité couleur --------------------------------------------- 
+            function quantiteCouleur() {
+
+//Si le tableau n'est pas vide
                 if(DonneesLocalStorage != null) {
 //Parcourir le tableau
                     for (i=0 ; i < DonneesLocalStorage.length; i++){
+//Convertir les srtings en nombre
 //Si le produit est déjà dans le tableau. 
-                        if(DonneesLocalStorage[i].idCouleur == produitSelectionne.idCouleur){
+                        if(produitSelectionne.idCouleur == DonneesLocalStorage[i].idCouleur){
+                            
 //Gérer sa quantité
-                         DonneesLocalStorage.productQuantity = DonneesLocalStorage[i].productQuantity + InputNumber.value;
-                           
+produitSelectionne.QuantiteProduit = parseInt(DonneesLocalStorage[i].QuantiteProduit) + parseInt(productQuantity);
+                         
                         }
                     }
                 }
             }
-*/
+
 
             
                 
@@ -108,7 +112,7 @@ fetch("http://localhost:3000/api/products")
             }
 //Voir si il y a déjà des données dans le local storage
             if(DonneesLocalStorage){
-                //quantiteCouleur();
+                quantiteCouleur();
                 ajoutProduitLocalStorage();
 
             }
