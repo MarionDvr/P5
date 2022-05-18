@@ -101,7 +101,9 @@ fetch("http://localhost:3000/api/products")
         pDelete.classList.add('deleteItem');
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
+        
 // -----------------------Total des articles ---------------------------------
+/*
 //Tableau pour contenir tous les prix
         let prixTotalCalcul = [];
 //Aller chercher les prix
@@ -121,30 +123,33 @@ fetch("http://localhost:3000/api/products")
         totalQuantity.innerHTML = totalQuantityProduits;
         let totalPrice = document.getElementById('totalPrice');
         totalPrice.innerHTML = prixTotal;
+*/        
+//----------------Suppression article--------------------------- 
 
-/*//----------------Suppression article--------------------------- 
-let deleteItem = document.querySelectorAll('.deleteItem');
+let deleteItem = document.querySelector('.deleteItem')
 
-//Parcourir les différents bouton supprimer
-for(let i = 0; i < pDelete.length; i++){
+for (let i = 0; i < DonneesLocalStorage.length; i++) {
+    
 //Ecouter le texte "supprimer"   
-    deleteItem[i].addEventListener('click', (event) => {
-//Selection de l'id du produit qui va être supprimé
-    let idASupprimer = DonneesLocalStorage[i].idProduit;
-   
-//Supprimer avec filter - methode 1
-    DonneesLocalStorage = DonneesLocalStorage.filter(element => element.idProduit !== idASupprimer);        
+deleteItem[i].addEventListener('click', function() {
+        
+        
+//Supprimer avec removeItem
+    localStorage.removeItem('produit');
 
-
-//Suppression de l'article une fois - methode 2
- //       DonneesLocalStorage.splice(i, 1);
+      
+})   
+}     
 //On envoye le résultat dans le localStorage
-        localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+    //   localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
 //Rechergement de la page
-        window.location.href = 'cart.html';
+    //   window.location.href = 'cart.html';
+    
 
-    })
-}*/
+
+   
+
+
 
 //------------------------------Regexp Formulaire--------------------------------------------------
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
