@@ -2,7 +2,7 @@
 //Récupération du tableau et transformation en js
 let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
-//si le panier est vide
+//si le panier est vide afficher le panier est vide
 if(DonneesLocalStorage === null){
     const title = document.querySelector("h1");
     title.innerHTML = "Le panier est vide !";
@@ -101,60 +101,33 @@ fetch("http://localhost:3000/api/products")
         pDelete.classList.add('deleteItem');
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
-        
+
 // -----------------------Total des articles ---------------------------------
-/*
 //Tableau pour contenir tous les prix
-        let prixTotalCalcul = [];
+let prixTotalCalcul = [];
 //Aller chercher les prix
-        for(let n = 0; n < DonneesLocalStorage.length; n++){
+        
             let PrixProduits = products.price;
-//Mettre les prix dans prisTotalCalcul
+
+//Mettre les prix dans prixTotalCalcul
+
             prixTotalCalcul.push(PrixProduits);
-        }
-//Additionner les prix du tableau avec reduce
-        const reducer = (accumulator, currentValue) => accumulator + currentValue;
-        const prixTotal = prixTotalCalcul.reduce(reducer);
-
-
-        //Total des articles - Affichage
-        let totalQuantityProduits = prixTotalCalcul.length;
-        let totalQuantity = document.getElementById('totalQuantity');
-        totalQuantity.innerHTML = totalQuantityProduits;
-        let totalPrice = document.getElementById('totalPrice');
-        totalPrice.innerHTML = prixTotal;
-*/        
-//----------------Suppression article--------------------------- 
-
-let deleteItem = document.querySelector('.deleteItem')
-
-for (let i = 0; i < DonneesLocalStorage.length; i++) {
+            console.log(prixTotalCalcul);
+                  
     
-//Ecouter le texte "supprimer"   
-deleteItem[i].addEventListener('click', function() {
-        
-        
-//Supprimer avec removeItem
-    localStorage.removeItem('produit');
+//Additionner les prix du tableau 
 
-      
-})   
-}     
-//On envoye le résultat dans le localStorage
-    //   localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
-//Rechergement de la page
-    //   window.location.href = 'cart.html';
-    
+const prixTotal = prixTotalCalcul;  
+console.log(prixTotal)
 
 
-   
 
 
 
 //------------------------------Regexp Formulaire--------------------------------------------------
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
         let form = document.querySelector('.cart__order__form');
-
+    
   
 //------------------------------Regexp PRENOM --------------------------------------------------
 //écouter l'input PRÉNOM
@@ -164,7 +137,7 @@ deleteItem[i].addEventListener('click', function() {
         });
 //Fonction avec la regexp pour valider le prénom
     const validFirstName = function(inputFirstName){
-        let firstnameRegExp = new RegExp('^[A-Za-z-]{3,}$', 'g');
+        let firstnameRegExp = new RegExp('^[A-Za-zéèêôîïû-]{3,}$', 'g');
         let testFirstName = firstnameRegExp.test(inputFirstName.value);
 //Variable pour écrire une message de validation ou d'erreur
         let firstNameErrorMsg = inputFirstName.nextElementSibling;
@@ -177,6 +150,9 @@ deleteItem[i].addEventListener('click', function() {
         firstNameErrorMsg.innerHTML = "Le prénom n'est pas valide";
         }
     }
+
+
+
 //------------------------------Regexp NOM --------------------------------------------------
 //écouter l'input NOM
         form.lastName.addEventListener('change', function() {
@@ -185,7 +161,7 @@ deleteItem[i].addEventListener('click', function() {
         });
     //Fonction avec la regexp pour valider le nom 
         const validLastName = function(inputLastName){
-            let lastnameRegExp = new RegExp('^[A-Za-z-]+$', 'g');
+            let lastnameRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
             let testLastName = lastnameRegExp.test(inputLastName.value);
     //Variable pour écrire une message de validation ou d'erreur
             let lastNameErrorMsg = inputLastName.nextElementSibling;
@@ -198,6 +174,10 @@ deleteItem[i].addEventListener('click', function() {
             lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
             }
         }
+
+
+
+
 //------------------------------Regexp Adresse --------------------------------------------------
 //écouter l'input NOM
     form.address.addEventListener('change', function() {
@@ -207,7 +187,7 @@ deleteItem[i].addEventListener('click', function() {
 //Fonction avec la regexp pour valider le nom et prénom
     const validAddress = function(inputAdress){ 
 //Explication regExp : ensemble quelconque de chiffre suivit éventuellement d'un espace suivit d'un ensemble quelconque de lettres espaces virgules ou points suivit éventuellement d'un espace
-        let adressRegExp = new RegExp('^([0-9]) ?([a-zA-Z,\. ]) ?$', 'g');
+        let adressRegExp = new RegExp('^[0-9 A-Za-z-]{1,40}$', 'g');
         let testAdress = adressRegExp.test(inputAdress.value);
 //Variable pour écrire une message de validation ou d'erreur
         let adressErrorMsg = inputAdress.nextElementSibling;
@@ -220,6 +200,10 @@ deleteItem[i].addEventListener('click', function() {
             adressErrorMsg.innerHTML = "L'adresse n'est pas valide";
         }
     }
+
+
+
+
 //------------------------------Regexp VILLE --------------------------------------------------
 //écouter l'input ville
 form.city.addEventListener('change', function() {
@@ -228,7 +212,7 @@ form.city.addEventListener('change', function() {
 });
 //Fonction avec la regexp pour valider la ville 
 const validCity = function(inputCity){
-    let cityRegExp = new RegExp('^[A-Za-z-]{1,40}$', 'g');
+    let cityRegExp = new RegExp("^[A-Za-z-'éèêôîïû ]{1,40}$", 'g');
     let testCity = cityRegExp.test(inputCity.value);
 //Variable pour le message d'erreur
     let cityErrorMsg = inputCity.nextElementSibling;
@@ -241,6 +225,11 @@ const validCity = function(inputCity){
         cityErrorMsg.innerHTML = "La ville n'est pas valide";
     }
 }
+
+
+
+
+
 //------------------------------Regexp Email --------------------------------------------------
 //écouter l'input email
         form.email.addEventListener('change', function() {
@@ -255,8 +244,8 @@ const validCity = function(inputCity){
 //[.]{1} = caractère accepté :  un seul point
 //[a-z]{2-3} = caractères acceptés : des minuscules de a à z au nombre de 2 ou 3
 //$ = la fin
-//g = de manière global
-            let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2-3}$', 'g');
+//g = Le drapeau " g " indique que l'expression régulière doit être testée par rapport à toutes les correspondances possibles dans une chaîne.
+            let emailRegExp = new RegExp('^[a-zA-Z0-9\._-]+[@][a-zA-Z0-9-_]+[\.]{1}[a-z]{2-3}$', 'g');
             let testEmail = emailRegExp.test(inputEmail.value);
 //Variable pour écrire une message de validation ou d'erreur
             let emailErrorMsg = inputEmail.nextElementSibling;
