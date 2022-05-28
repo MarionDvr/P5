@@ -105,20 +105,24 @@ fetch("http://localhost:3000/api/products")
 // -----------------------Total des articles ---------------------------------
 //Tableau pour contenir tous les prix
 let prixTotalCalcul = [];
-//Aller chercher les prix
-        
-            let PrixProduits = products.price;
 
 //Mettre les prix dans prixTotalCalcul
-
-            prixTotalCalcul.push(PrixProduits);
-            console.log(prixTotalCalcul);
-                  
-    
+let PrixProduit = products.price;
+prixTotalCalcul.push(PrixProduit);
+            
 //Additionner les prix du tableau 
 
-const prixTotal = prixTotalCalcul;  
-console.log(prixTotal)
+const Somme = prixTotalCalcul.reduce((a, b)=> a + b,0);
+
+console.log(Somme);
+
+
+            
+
+
+
+
+
 
 
 
