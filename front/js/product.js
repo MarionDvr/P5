@@ -90,7 +90,7 @@ function ajoutProduitLocalStorage() {
                 }
 
 //--------------------------Probléme quantité couleur --------------------------------------------- 
-
+// Ca fonctionne fait que pour l'ajout de 1
             function quantiteCouleur() {
 
 //Si le tableau n'est pas vide
@@ -113,6 +113,10 @@ function ajoutProduitLocalStorage() {
                             localStorage.setItem("produit", JSON.stringify(produitSelectionne));
                            
                         } 
+    //Si l'article n'est pas déjà dans le panier, l'ajouter dans le local Storage
+    //Cette fonction ne fonctionne pas ici
+                          //  ajoutProduitLocalStorage();
+                        
                     }
                 }
             }
@@ -122,11 +126,9 @@ function ajoutProduitLocalStorage() {
             if(DonneesLocalStorage){
 //Et que l'article selectionné est déjà dans le panier, ajouter la nouvelle quantité
                 quantiteCouleur();
-                
-//Et que l'article n'est pas déjà dans le panier, l'ajouter dans le local Storage
-                //ajoutProduitLocalStorage();
+            }   
 
-            }
+            
 //si il n'y a pas de produits déjà enregistré dans le LocalStorage
             else {
 //Créer le tableau pour mettre les info du produit

@@ -103,20 +103,15 @@ fetch("http://localhost:3000/api/products")
         divItemDelete.appendChild(pDelete);
 
 // -----------------------Total des articles ---------------------------------
+
 //Tableau pour contenir tous les prix
 let prixTotalCalcul = [];
-
 //Mettre les prix dans prixTotalCalcul
 let PrixProduit = products.price;
 prixTotalCalcul.push(PrixProduit);
-            
-//Additionner les prix du tableau 
 
-const Somme = prixTotalCalcul.reduce((a, b)=> a + b,0);
-
-console.log(Somme);
-
-
+const result = prixTotalCalcul.reduce((sum, current) => sum + current.price, 0)
+console.log(result) 
             
 
 
