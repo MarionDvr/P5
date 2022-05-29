@@ -79,46 +79,59 @@ fetch("http://localhost:3000/api/products")
 //Récupération du tableau
 let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
+//-------------------Fonction ajouter produit sélectionné dans le local storage -----------------------
+function ajoutProduitLocalStorage() {
+                
+    //Ajout du produit selectionné dans le tableau DonneesLocalStorage
+                    DonneesLocalStorage.push(produitSelectionne);
+    //La transformation en format JSON de la clef produit du local storage
+                    localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+                        
+                }
+
 //--------------------------Probléme quantité couleur --------------------------------------------- 
+
             function quantiteCouleur() {
 
 //Si le tableau n'est pas vide
                 if(DonneesLocalStorage != null) {
 //Parcourir le tableau
                     for (i=0 ; i < DonneesLocalStorage.length; i++){
-//Convertir les srtings en nombre
-//Si le produit est déjà dans le tableau. 
+
+//Si le produit est déjà dans le tableau. (recherche grace à idCouleur)
                         if(produitSelectionne.idCouleur == DonneesLocalStorage[i].idCouleur){
                             
+                            
+// Convertir les strings en nombre
+                            let QuantiteDejaChoisi = parseInt(DonneesLocalStorage[i].QuantiteProduit);
+                            let QuantiteChoisi = parseInt(productQuantity);
 //Gérer sa quantité
-produitSelectionne.QuantiteProduit = parseInt(DonneesLocalStorage[i].QuantiteProduit) + parseInt(productQuantity);
-                         
-                        }
+                            produitSelectionne.QuantiteProduit = QuantiteDejaChoisi + QuantiteChoisi;
+
+//Renvoyer la nouvelle valeur dans le tableau
+                            DonneesLocalStorage.push(produitSelectionne.QuantiteProduit);
+                            localStorage.setItem("produit", JSON.stringify(produitSelectionne));
+                           
+                        } 
                     }
                 }
             }
 
-
-            
-                
-//Fonction ajouter produit sélectionné dans le local storage
-            function ajoutProduitLocalStorage() {
-                
-//Ajout du produit selectionné dans le tableau DonneesLocalStorage
-                DonneesLocalStorage.push(produitSelectionne);
-//La transformation en format JSON de la clef produit du local storage
-                localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
-                    
-            }
-//Voir si il y a déjà des données dans le local storage
+//------------------------------------------------------------------------------------------------------------
+//Si il y a déjà des données dans le local storage
             if(DonneesLocalStorage){
+//Et que l'article selectionné est déjà dans le panier, ajouter la nouvelle quantité
                 quantiteCouleur();
-                ajoutProduitLocalStorage();
+                
+//Et que l'article n'est pas déjà dans le panier, l'ajouter dans le local Storage
+                //ajoutProduitLocalStorage();
 
             }
 //si il n'y a pas de produits déjà enregistré dans le LocalStorage
             else {
+//Créer le tableau pour mettre les info du produit
                 DonneesLocalStorage =[];
+//Ajouter le produit dans le local Storage
                 ajoutProduitLocalStorage();
                
             }
