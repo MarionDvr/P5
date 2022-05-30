@@ -113,7 +113,7 @@ prixTotalCalcul.push(PrixProduit);
 const result = prixTotalCalcul.reduce((sum, current) => sum + current.price, 0)
 console.log(result) 
             
-// ------suprimer
+// ------Suprimer
 // ça fonctionne por vider l'intégralité du panier
 let deleteItem = document.querySelector('.deleteItem')
 
@@ -150,8 +150,8 @@ deleteItem.addEventListener('click', function() {
         });
 //Fonction avec la regexp pour valider le prénom
     const validFirstName = function(inputFirstName){
-        let firstnameRegExp = new RegExp('^[A-Za-zéèêôîïû-]{3,}$', 'g');
-        let testFirstName = firstnameRegExp.test(inputFirstName.value);
+        let nameCityRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
+        let testFirstName = nameCityRegExp.test(inputFirstName.value);
 //Variable pour écrire une message de validation ou d'erreur
         let firstNameErrorMsg = inputFirstName.nextElementSibling;
         
@@ -174,8 +174,8 @@ deleteItem.addEventListener('click', function() {
         });
     //Fonction avec la regexp pour valider le nom 
         const validLastName = function(inputLastName){
-            let lastnameRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
-            let testLastName = lastnameRegExp.test(inputLastName.value);
+            
+            let testLastName = nameCityRegExp.test(inputLastName.value);
     //Variable pour écrire une message de validation ou d'erreur
             let lastNameErrorMsg = inputLastName.nextElementSibling;
             
@@ -225,8 +225,8 @@ form.city.addEventListener('change', function() {
 });
 //Fonction avec la regexp pour valider la ville 
 const validCity = function(inputCity){
-    let cityRegExp = new RegExp("^[A-Za-z-'éèêôîïû ]{1,40}$", 'g');
-    let testCity = cityRegExp.test(inputCity.value);
+    
+    let testCity = nameCityRegExp.test(inputCity.value);
 //Variable pour le message d'erreur
     let cityErrorMsg = inputCity.nextElementSibling;
 
@@ -258,7 +258,7 @@ const validCity = function(inputCity){
 //[a-z]{2-3} = caractères acceptés : des minuscules de a à z au nombre de 2 ou 3
 //$ = la fin
 //g = Le drapeau " g " indique que l'expression régulière doit être testée par rapport à toutes les correspondances possibles dans une chaîne.
-            let emailRegExp = new RegExp('^[a-zA-Z0-9\._-]+[@][a-zA-Z0-9-_]+[\.]{1}[a-z]{2-3}$', 'g');
+            let emailRegExp = new RegExp('^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-_]+\.[a-z]{2-3}$', 'g');
             let testEmail = emailRegExp.test(inputEmail.value);
 //Variable pour écrire une message de validation ou d'erreur
             let emailErrorMsg = inputEmail.nextElementSibling;
