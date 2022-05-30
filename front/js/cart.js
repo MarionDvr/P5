@@ -113,8 +113,22 @@ prixTotalCalcul.push(PrixProduit);
 const result = prixTotalCalcul.reduce((sum, current) => sum + current.price, 0)
 console.log(result) 
             
+// ------suprimer
+// ça fonctionne por vider l'intégralité du panier
+let deleteItem = document.querySelector('.deleteItem')
 
 
+    
+//Ecouter le texte "supprimer"   
+deleteItem.addEventListener('click', function() {
+        
+      
+//Supprimer avec remove
+    localStorage.removeItem('produit');
+//Rechergement de la page
+    window.location.href = 'cart.html';
+
+})
 
 
 

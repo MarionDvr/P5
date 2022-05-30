@@ -113,9 +113,7 @@ function ajoutProduitLocalStorage() {
                             localStorage.setItem("produit", JSON.stringify(produitSelectionne));
                            
                         } 
-    //Si l'article n'est pas déjà dans le panier, l'ajouter dans le local Storage
-    //Cette fonction ne fonctionne pas ici
-                          //  ajoutProduitLocalStorage();
+   
                         
                     }
                 }
@@ -125,7 +123,10 @@ function ajoutProduitLocalStorage() {
 //Si il y a déjà des données dans le local storage
             if(DonneesLocalStorage){
 //Et que l'article selectionné est déjà dans le panier, ajouter la nouvelle quantité
-                quantiteCouleur();
+                //quantiteCouleur();
+ //Si l'article n'est pas déjà dans le panier, l'ajouter dans le local Storage
+
+                ajoutProduitLocalStorage();
             }   
 
             
