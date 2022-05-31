@@ -81,24 +81,23 @@ fetch("http://localhost:3000/api/products")
                     let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
 
-
-//--------------------------Probléme quantité couleur et ou ajouter dans le local storage --------------------------------------------- 
-
-//boucle pour parcourir le tableau donneeLocalStrage
                 
 //Si le tableau n'est pas vide
                     if(DonneesLocalStorage != null) {
+//boucle pour parcourir le tableau donneeLocalStrage
                         for (i=0 ; i < DonneesLocalStorage.length; i++){ 
-                            let produitDejaChoisi = DonneesLocalStorage.find(produitSelectionne => produitSelectionne.idCouleur === DonneesLocalStorage[i].idCouleur);
-                            console.log(produitSelectionne.idCouleur);
-                            console.log(DonneesLocalStorage[i].idCouleur)
+//Recherche si le produit choisi est déjà dans le local storage
+                            let produitDejaChoisi = DonneesLocalStorage.find(produitSelectionne => produitSelectionne.idProduit === DonneesLocalStorage[i].idProduit && produitSelectionne.CouleurProduit === DonneesLocalStorage[i].CouleurProduit);
+                            
 //Si le produit est déjà dans le tableau. (recherche grace à produitDejaChoisi)                    
                             if (produitDejaChoisi) {
+                                
 // Convertir les strings en nombre
                                 let QuantiteDejaChoisi = parseInt(DonneesLocalStorage[i].QuantiteProduit);
                                 let QuantiteChoisi = parseInt(productQuantity);
 //Gérer sa quantité
                                 produitSelectionne.QuantiteProduit = QuantiteDejaChoisi + QuantiteChoisi;
+                                produitSelectionne.QuantiteProduit.toString();
 //Renvoyer la nouvelle valeur dans le tableau
                                 localStorage.setItem("produit", JSON.stringify(produitSelectionne));
                             } else {
