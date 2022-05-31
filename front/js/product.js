@@ -79,27 +79,25 @@ fetch("http://localhost:3000/api/products")
                     };
 //Récupération du tableau
                     let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
-
-
-                
 //Si le tableau n'est pas vide
                     if(DonneesLocalStorage != null) {
-//boucle pour parcourir le tableau donneeLocalStrage
+//Parcourir le tableau donneeLocalStrage
                         for (i=0 ; i < DonneesLocalStorage.length; i++){ 
-//Recherche si le produit choisi est déjà dans le local storage
-                            let produitDejaChoisi = DonneesLocalStorage.find(produitSelectionne => produitSelectionne.idProduit === DonneesLocalStorage[i].idProduit && produitSelectionne.CouleurProduit === DonneesLocalStorage[i].CouleurProduit);
+//Rechercher si le produit choisi est déjà dans le local storage avec la correspondance id et couleur
+                            let produitDejaChoisi = DonneesLocalStorage.find(produitSelectionne => produitSelectionne.idCouleur === DonneesLocalStorage[i].idCouleur);
                             
-//Si le produit est déjà dans le tableau. (recherche grace à produitDejaChoisi)                    
+//Si le produit est déjà dans le tableau                    
                             if (produitDejaChoisi) {
-                                
-// Convertir les strings en nombre
+//Convertir les strings en nombre
                                 let QuantiteDejaChoisi = parseInt(DonneesLocalStorage[i].QuantiteProduit);
                                 let QuantiteChoisi = parseInt(productQuantity);
 //Gérer sa quantité
-                                produitSelectionne.QuantiteProduit = QuantiteDejaChoisi + QuantiteChoisi;
-                                produitSelectionne.QuantiteProduit.toString();
+                                produitSelectionne.QuantiteProduit = QuantiteDejaChoisi += QuantiteChoisi;
+
 //Renvoyer la nouvelle valeur dans le tableau
+                               
                                 localStorage.setItem("produit", JSON.stringify(produitSelectionne));
+                                
                             } else {
 //Ajout du produit selectionné dans le tableau DonneesLocalStorage
                                 DonneesLocalStorage.push(produitSelectionne);
