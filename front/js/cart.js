@@ -102,33 +102,47 @@ fetch("http://localhost:3000/api/products")
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
 
-// -----------------------Total des articles ---------------------------------
+// -----------------------Total Quantité - articles ---------------------------------
 
-//Tableau pour contenir tous les prix
-let prixTotalCalcul = [];
-//Mettre les prix dans prixTotalCalcul
-let PrixProduit = products.price;
-prixTotalCalcul.push(PrixProduit);
+//Création d'un tableau
+let calculTotalQteArticle = [];
 
-const result = prixTotalCalcul.reduce((sum, current) => sum + current.price, 0)
-console.log(result) 
+//Récupérer la valeur quantité
+    let qteDuProduit = produit.QuantiteProduit;
+//Mettre la quantité en nombre pour le calcul
+    qteDuProduit = parseInt(qteDuProduit);
+//mettre ds le tableau les valeurs
+calculTotalQteArticle.push(qteDuProduit);
+let TotalQte = 0;
+
+for (let w = 0; w < calculTotalQteArticle.length; w++) {
+//Calcul
+TotalQte += calculTotalQteArticle[w];
+   
+   
+   console.log(TotalQte)
+}   
+
+
             
 // ------Suprimer
-// ça fonctionne por vider l'intégralité du panier
-let deleteItem = document.querySelector('.deleteItem')
 
+let deleteItem = document.querySelectorAll('.deleteItem');
 
+for (let b = 0; b < deleteItem.length; b++) {
     
-//Ecouter le texte "supprimer"   
-deleteItem.addEventListener('click', function() {
+    //Ecouter le texte "supprimer"   
+    deleteItem[b].addEventListener('click', function() {
+            
         
-      
-//Supprimer avec remove
-    localStorage.removeItem('produit');
-//Rechergement de la page
-    window.location.href = 'cart.html';
+    //Supprimer avec remove
+        localStorage.removeItem(idProduit);
+        
+    //Rechergement de la page
+        window.location.reload();
 
-})
+    })
+}
 
 
 
