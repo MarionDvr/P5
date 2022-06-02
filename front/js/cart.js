@@ -101,19 +101,19 @@ fetch("http://localhost:3000/api/products")
         pDelete.classList.add('deleteItem');
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
-        
+
 
 // -----------------------Total Quantité - articles ---------------------------------
 
 //Création d'un tableau
-//let calculTotalQteArticle = [];
+
 let itemQuantity = document.querySelectorAll('.itemQuantity');
 //Récupérer la valeur quantité
     let qteDuProduit = inputItemQuantity.value;
 //Mettre la quantité en nombre pour le calcul
     qteDuProduit = parseInt(qteDuProduit);
 //mettre ds le tableau les valeurs
-//calculTotalQteArticle.push(qteDuProduit);
+
 let TotalQte = 0;
 
 for (let w = 0; w < itemQuantity.length; w++) {
