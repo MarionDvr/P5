@@ -101,26 +101,27 @@ fetch("http://localhost:3000/api/products")
         pDelete.classList.add('deleteItem');
         pDelete.innerHTML = "Supprimer";
         divItemDelete.appendChild(pDelete);
+        
 
 // -----------------------Total Quantité - articles ---------------------------------
 
 //Création d'un tableau
-let calculTotalQteArticle = [];
-
+//let calculTotalQteArticle = [];
+let itemQuantity = document.querySelectorAll('.itemQuantity');
 //Récupérer la valeur quantité
-    let qteDuProduit = produit.QuantiteProduit;
+    let qteDuProduit = inputItemQuantity.value;
 //Mettre la quantité en nombre pour le calcul
     qteDuProduit = parseInt(qteDuProduit);
 //mettre ds le tableau les valeurs
-calculTotalQteArticle.push(qteDuProduit);
+//calculTotalQteArticle.push(qteDuProduit);
 let TotalQte = 0;
 
-for (let w = 0; w < calculTotalQteArticle.length; w++) {
+for (let w = 0; w < itemQuantity.length; w++) {
 //Calcul
-TotalQte += calculTotalQteArticle[w];
+TotalQte += itemQuantity[w].qteDuProduit;
    
    
-   console.log(TotalQte)
+   console.log(qteDuProduit)
 }   
 
 
@@ -136,7 +137,7 @@ for (let b = 0; b < deleteItem.length; b++) {
             
         
     //Supprimer avec remove
-        localStorage.removeItem(idProduit);
+        localStorage.removeItem('idProduit');
         
     //Rechergement de la page
         window.location.reload();
