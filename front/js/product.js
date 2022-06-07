@@ -68,6 +68,7 @@ fetch("http://localhost:3000/api/products")
 // Création variables pour le tableau
                     let productColor = SelectColor.value;
                     let productQuantity = InputNumber.value;
+                    
                
 //--------------------------------- Tableau ----------------------------------------------------------
 //Stockage des informations
@@ -81,9 +82,11 @@ fetch("http://localhost:3000/api/products")
                     let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
 //Si le tableau n'est pas vide
                     if(DonneesLocalStorage) {
+//Création variable
+                    let idKanap = produitSelectionne.idProduit;  
 //Parcourir le tableau donneeLocalStrage
                         
-                            const produitDejaChoisi = DonneesLocalStorage.find(p => p.idProduit === DonneesLocalStorage.idProduit && p.CouleurProduit === DonneesLocalStorage.CouleurProduit);
+                            const produitDejaChoisi = DonneesLocalStorage.find(element => element.idKanap === idKanap && element.productColor === CouleurProduit);
 //Si le produit est déjà dans le tableau. (recherche grace à idCouleur)
                             if(produitDejaChoisi){
 // Convertir les strings en nombre
