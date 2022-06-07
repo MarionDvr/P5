@@ -77,17 +77,17 @@ fetch("http://localhost:3000/api/products")
                     QuantiteProduit: productQuantity,
                     idCouleur: id + productColor
                     };
-//Récupération du tableau
+//Récupération du tableau - voir si il existe déjà
                     let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
 //Si le tableau n'est pas vide
-                    if(DonneesLocalStorage != null) {
+                    if(DonneesLocalStorage) {
 //Parcourir le tableau donneeLocalStrage
-                        for (let i=0 ; i < DonneesLocalStorage.length; i++){ 
-                            let produitDejaChoisi = DonneesLocalStorage.find(produitSelectionne => produitSelectionne.idCouleur === DonneesLocalStorage[i].idCouleur);
+                        
+                            const produitDejaChoisi = DonneesLocalStorage.find(p => p.idProduit === DonneesLocalStorage.idProduit && p.CouleurProduit === DonneesLocalStorage.CouleurProduit);
 //Si le produit est déjà dans le tableau. (recherche grace à idCouleur)
                             if(produitDejaChoisi){
 // Convertir les strings en nombre
-                                let QuantiteDejaChoisi = parseInt(DonneesLocalStorage[i].QuantiteProduit);
+                                let QuantiteDejaChoisi = parseInt(DonneesLocalStorage.QuantiteProduit);
                                 let QuantiteChoisi = parseInt(productQuantity);
 //Gérer sa quantité
                                 produitSelectionne.QuantiteProduit = QuantiteDejaChoisi + QuantiteChoisi;
@@ -102,7 +102,7 @@ fetch("http://localhost:3000/api/products")
 //La transformation en format JSON de la clef produit du local storage
                                 localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
                             } 
-                        }
+                     
 //Si il n'y a pas de données dans le local storage
                     } else {
 //Créer le tableau pour mettre les info du produit
