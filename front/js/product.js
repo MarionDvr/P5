@@ -76,7 +76,7 @@ fetch("http://localhost:3000/api/products")
                     idProduit: id,
                     CouleurProduit: productColor,
                     QuantiteProduit: productQuantity,
-                    idCouleur: id + productColor
+                    
                     };
 //Récupération du tableau - voir si il existe déjà
                     let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));

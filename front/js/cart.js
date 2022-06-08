@@ -110,7 +110,21 @@ function TotalQuantite() {
     let itemQuantity = document.querySelectorAll('.itemQuantity');
 //Récupérer la valeur des input
     let qteDuProduit = inputItemQuantity.value;
-    
+/*    for (x =0; x < itemQuantity.length; x++) {
+//écouter si l'utilisateur change la quantité
+        itemQuantity[x].addEventListener('change', updateValue);
+//Changement de la valeur de l'input
+        function updateValue(e) {
+            qteDuProduit[x] = e.target.value;
+            DonneesLocalStorage.QuantiteProduit = qteDuProduit;
+//Modifer la quantité dans le local storage
+            localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+
+                          
+            
+        }
+    }     
+ */   
 //Mettre la quantité en nombre pour le calcul
     qteDuProduit = parseInt(qteDuProduit);
     
@@ -120,11 +134,10 @@ function TotalQuantite() {
         
 //Calcul = La quantité de chaque input
         TotalQte =+ qteDuProduit;
-        console.log(TotalQte);
+        
 }
 
-//fonction
-TotalQuantite();
+
 
 
 
@@ -133,16 +146,23 @@ function Supprimer () {
     let deleteItem = document.querySelectorAll('.deleteItem');
 //Parcourir les bouton supprimer
     for (let b = 0; b < deleteItem.length; b++) {
+                       
 //Ecouter le texte "supprimer"   
         deleteItem[b].addEventListener('click', function() {
+            
+            
 //Supprimer avec remove
             localStorage.removeItem('idProduit');
+            localStorage.removeItem('CouleurProduit');
 //Rechergement de la page
             window.location.reload();
+            
         })
     }
 
 }
+
+
 //Déclaration variable pour les regex prenom nom et ville
 let nameCityRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
 
@@ -251,6 +271,14 @@ function RegExpEmail () {
     }
     
 }
+//Fonction
+TotalQuantite();
+Supprimer();
+RegexpPrenom();
+RegExpNom();
+RegExpAdresse();
+RegExpVille();
+RegExpEmail();
 }
 })
 
