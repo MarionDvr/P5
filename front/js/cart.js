@@ -149,11 +149,11 @@ function Supprimer () {
                        
 //Ecouter le texte "supprimer"   
         deleteItem[b].addEventListener('click', function() {
-            
+            const IdCouleur = DonneesLocalStorage.find(element => element.idProduit && element.CouleurProduit);
             
 //Supprimer avec remove
-            localStorage.removeItem('idProduit');
-            localStorage.removeItem('CouleurProduit');
+            localStorage.removeItem(IdCouleur);
+            console.log(IdCouleur)
 //Rechergement de la page
             window.location.reload();
             
@@ -165,10 +165,11 @@ function Supprimer () {
 
 //Déclaration variable pour les regex prenom nom et ville
 let nameCityRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
+//Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
+let form = document.querySelector('.cart__order__form');
 
 function RegexpPrenom() {
-//Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
-    let form = document.querySelector('.cart__order__form');
+
 //écouter l'input PRÉNOM
     form.firstName.addEventListener('change', function() {
 //this fait référence à l'input de firstName
