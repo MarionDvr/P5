@@ -2,8 +2,8 @@
 //Récupération du tableau et transformation en js
 let DonneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
-//si le panier est vide afficher le panier est vide
-if(DonneesLocalStorage === null){
+//si le panier est vide afficher le panier est vide (ou que tous les artciles ont été supprimé)
+if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
     const title = document.querySelector("h1");
     title.innerHTML = "Le panier est vide !";
 }else {
@@ -144,26 +144,27 @@ function TotalQuantite() {
 function Supprimer () {
 //Suprimer un article
     let deleteItem = document.querySelectorAll('.deleteItem');
-//Parcourir les bouton supprimer
-    for (let b = 0; b < deleteItem.length; b++) {
-                       
-//Ecouter le texte "supprimer"   
-        deleteItem[b].addEventListener('click', function() {
-            const IdCouleur = DonneesLocalStorage.find(element => element.idProduit && element.CouleurProduit);
+    
+    for (let c = 0; c < deleteItem.length; c++) {
+        deleteItem[c].addEventListener('click', (event) => {
+            event.stopImmediatePropagation();
             
-//Supprimer avec remove
-            localStorage.removeItem(IdCouleur);
-            console.log(IdCouleur)
-//Rechergement de la page
+            let idCouleurASupprimer = DonneesLocalStorage[c].idCouleur;
+//Selectionner avec la méthode filter (selectionner les éléments à garder et supprimer l'élement à suppimer)
+            DonneesLocalStorage = DonneesLocalStorage.filter((el)=> el.idCouleur !== idCouleurASupprimer);
+//Renvoyer les données dans le local Storage
+            localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+//Recharger la page
             window.location.reload();
-            
+            console.log(DonneesLocalStorage)
         })
     }
+ 
 
 }
 
 
-//Déclaration variable pour les regex prenom nom et ville
+/*//Déclaration variable pour les regex prenom nom et ville
 let nameCityRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
 let form = document.querySelector('.cart__order__form');
@@ -273,13 +274,13 @@ function RegExpEmail () {
     
 }
 //Fonction
-TotalQuantite();
+TotalQuantite();*/
 Supprimer();
-RegexpPrenom();
+/*RegexpPrenom();
 RegExpNom();
 RegExpAdresse();
 RegExpVille();
-RegExpEmail();
+RegExpEmail();*/
 }
 })
 
