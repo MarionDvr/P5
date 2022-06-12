@@ -86,20 +86,18 @@ fetch("http://localhost:3000/api/products")
                     let idKanap = produitSelectionne.idProduit;  
 //Parcourir le tableau donneeLocalStrage
                         
-                            const produitDejaChoisi = DonneesLocalStorage.find(element => element.CouleurProduit === productColor && element.idProduit === idKanap );
+                            const produitDejaChoisi = DonneesLocalStorage.find((element) => element.CouleurProduit === productColor && element.idProduit === idKanap );
                             
 //Si le produit est déjà dans le tableau. (recherche grace à id et Couleur)
                             if(produitDejaChoisi){
-// Convertir les strings en nombre
-                                let QuantiteDejaChoisi = parseInt(produitSelectionne.QuantiteProduit);
-                                let QuantiteChoisi = parseInt(productQuantity);
-//Gérer sa quantité
-                                produitSelectionne.QuantiteProduit = QuantiteDejaChoisi + QuantiteChoisi;
-                                produitSelectionne.QuantiteProduit = JSON.stringify(produitSelectionne.QuantiteProduit);
-                            
+// Convertir les strings en nombre et ajouter les quantités
+                                let AjoutQuantite = parseInt(produitSelectionne.QuantiteProduit) + parseInt(produitDejaChoisi.QuantiteProduit);
+                                
+                                produitDejaChoisi.QuantiteProduit = AjoutQuantite;
+
 //Renvoyer la nouvelle valeur dans le tableau
                                 
-                                localStorage.setItem("produit", JSON.stringify(produitSelectionne));
+                                localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
                                 
                             } else {
 //Ajout du produit selectionné dans le tableau DonneesLocalStorage
