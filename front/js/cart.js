@@ -117,7 +117,7 @@ function TotalQuantite() {
     tableauQteProduit.push(qteDuProduit);
 //Calcul de la quantité
    
-    for (const qteDuProduit of tableauQteProduit) {
+    for (const element of tableauQteProduit) {
         let totalQte = 0;
         totalQte += qteDuProduit;
         console.log(totalQte);
