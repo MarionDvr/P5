@@ -106,35 +106,24 @@ fetch("http://localhost:3000/api/products")
  
 
 function TotalQuantite() {
-//Récupération des input itemQuantity
-    let itemQuantity = document.querySelectorAll('.itemQuantity');
-//Récupérer la valeur des input
-    let qteDuProduit = inputItemQuantity.value;
-/*    for (x =0; x < itemQuantity.length; x++) {
-//écouter si l'utilisateur change la quantité
-        itemQuantity[x].addEventListener('change', updateValue);
-//Changement de la valeur de l'input
-        function updateValue(e) {
-            qteDuProduit[x] = e.target.value;
-            DonneesLocalStorage.QuantiteProduit = qteDuProduit;
-//Modifer la quantité dans le local storage
-            localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
 
-                          
-            
-        }
-    }     
- */   
+//Récupérer la valeur des input
+    let qteDuProduit = produit.QuantiteProduit;
 //Mettre la quantité en nombre pour le calcul
     qteDuProduit = parseInt(qteDuProduit);
-    
-//Création de la variable pour le total
-    let TotalQte = 0;
-
-        
-//Calcul = La quantité de chaque input
-        TotalQte =+ qteDuProduit;
-        
+//Création d'un tableau pour y mettre les valeur
+    let tableauQteProduit = [];
+//Mettre les valeur à l'intérieur du tableau
+    tableauQteProduit.push(qteDuProduit);
+//Calcul de la quantité
+   
+    for (const qteDuProduit of tableauQteProduit) {
+        let totalQte = 0;
+        totalQte += qteDuProduit;
+        console.log(totalQte);
+    }   
+      
+         
 }
 
 
@@ -164,7 +153,7 @@ function Supprimer () {
 }
 
 
-/*//Déclaration variable pour les regex prenom nom et ville
+//Déclaration variable pour les regex prenom nom et ville
 let nameCityRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
 let form = document.querySelector('.cart__order__form');
@@ -274,13 +263,13 @@ function RegExpEmail () {
     
 }
 //Fonction
-TotalQuantite();*/
+TotalQuantite();
 Supprimer();
-/*RegexpPrenom();
+RegexpPrenom();
 RegExpNom();
 RegExpAdresse();
 RegExpVille();
-RegExpEmail();*/
+RegExpEmail();
 }
 })
 
