@@ -115,7 +115,6 @@ function TotalQuantite() {
     let tableauQteProduit = [];
 //Mettre les valeur à l'intérieur du tableau
     tableauQteProduit.push(qteDuProduit);
-//Calcul de la quantité
    
     for (const element of tableauQteProduit) {
         let totalQte = 0;
@@ -145,7 +144,7 @@ function Supprimer () {
             localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
 //Recharger la page
             window.location.reload();
-            console.log(DonneesLocalStorage)
+            
         })
     }
  
@@ -264,12 +263,12 @@ function RegExpEmail () {
 }
 //Fonction
 TotalQuantite();
-Supprimer();
-RegexpPrenom();
-RegExpNom();
-RegExpAdresse();
-RegExpVille();
-RegExpEmail();
+//Supprimer();
+//RegexpPrenom();
+//RegExpNom();
+//RegExpAdresse();
+//RegExpVille();
+//RegExpEmail();
 }
 })
 
