@@ -20,7 +20,7 @@ fetch("http://localhost:3000/api/products")
         }
     })
 
-//Répartition des valeurs du tableau sur les élément HTML concerant le canapé
+//Répartition des valeurs du tableau de l'API sur les élément HTML concerant le canapé
 
     .then(function(Canape) {
         Canape.forEach(products =>  {
@@ -101,34 +101,42 @@ fetch("http://localhost:3000/api/products")
                 pDelete.classList.add('deleteItem');
                 pDelete.innerHTML = "Supprimer";
                 divItemDelete.appendChild(pDelete);
+
+function TotalQuantitePrix() {
+    
+//Récupérer les données du local storage
+    let qteDuProduit = DonneesLocalStorage;
+//Calcul de la quantité total
+//Le total commence à 0
+    let totalQte = 0;
+//Calcul du total en ajoutant à celui ci les quantités qui sont des nombres
+    for (let element of qteDuProduit) {
+        totalQte += Number(element.QuantiteProduit);
+    }  
+    
+        console.log(totalQte)
+//Insertion de la quantité total
+    let pTotalQuantity = document.getElementById('totalQuantity');
+    pTotalQuantity.innerHTML = totalQte;
+
+
+//Récupérer de l'api
+    let prixProduits = products.price;
+//Calcul du total en par article
+    let totalPrixParProduit = 0;
+    totalPrixParProduit += prixProduits * produit.QuantiteProduit;   
+    
+//Calcul du prix total
+//Le total commence à 0
+    let totalPrix = 0;
+//Calcul total
+    totalPrix =+ totalPrixParProduit;
+    console.log(totalPrix)
+    
+    
+                             
+}             
                 
-       
- 
-
-function TotalQuantite() {
-
-//Récupérer la valeur des input
-    let qteDuProduit = produit.QuantiteProduit;
-//Mettre la quantité en nombre pour le calcul
-    qteDuProduit = parseInt(qteDuProduit);
-//Création d'un tableau pour y mettre les valeur
-    let tableauQteProduit = [];
-//Mettre les valeur à l'intérieur du tableau
-    tableauQteProduit.push(qteDuProduit);
-   
-    for (const element of tableauQteProduit) {
-        let totalQte = 0;
-        totalQte += qteDuProduit;
-        console.log(totalQte);
-    }   
-      
-         
-}
-
-
-
-
-
 function Supprimer () {
 //Suprimer un article
     let deleteItem = document.querySelectorAll('.deleteItem');
@@ -262,8 +270,8 @@ function RegExpEmail () {
     
 }
 //Fonction
-TotalQuantite();
-//Supprimer();
+TotalQuantitePrix();
+Supprimer();
 //RegexpPrenom();
 //RegExpNom();
 //RegExpAdresse();
