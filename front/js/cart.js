@@ -101,6 +101,27 @@ fetch("http://localhost:3000/api/products")
                 pDelete.classList.add('deleteItem');
                 pDelete.innerHTML = "Supprimer";
                 divItemDelete.appendChild(pDelete);
+                
+                
+function AjoutQuantite() {
+//Récuperer les input
+const itemQuantity = document.querySelectorAll('.itemQuantity');
+//Parcourir les différents input quantité
+    for (let x = 0; x <itemQuantity.length; x++) {
+//écouter si il y a un changement sur les input
+        itemQuantity[x].addEventListener('change', (event) => {
+//la valeur de l'input est égal à la nouvelle valeur entrée
+            inputItemQuantity.value = event.target.value;
+//Définir que la quantité du produit prend la nouvelle valeur           
+            produit.QuantiteProduit = inputItemQuantity.value;
+//Envoyer les nouvelles données dans le local storage
+            localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+//Recherger la page
+            window.location.reload();
+        }); 
+    }
+}
+AjoutQuantite();
 
 function TotalQuantitePrix() {
     
@@ -114,7 +135,7 @@ function TotalQuantitePrix() {
         totalQte += Number(element.QuantiteProduit);
     }  
     
-        console.log(totalQte)
+        
 //Insertion de la quantité total
     let pTotalQuantity = document.getElementById('totalQuantity');
     pTotalQuantity.innerHTML = totalQte;
@@ -122,20 +143,22 @@ function TotalQuantitePrix() {
 
 //Récupérer de l'api
     let prixProduits = products.price;
-//Calcul du total en par article
+    
+//Calcul du total prix par article
     let totalPrixParProduit = 0;
-    totalPrixParProduit += prixProduits * produit.QuantiteProduit;   
+    totalPrixParProduit = prixProduits * produit.QuantiteProduit;   
     
 //Calcul du prix total
 //Le total commence à 0
     let totalPrix = 0;
 //Calcul total
     totalPrix =+ totalPrixParProduit;
-    console.log(totalPrix)
-    
-    
+   
+    console.log(totalPrix);
                              
-}             
+} 
+
+
                 
 function Supprimer () {
 //Suprimer un article
@@ -267,11 +290,12 @@ function RegExpEmail () {
             emailErrorMsg.innerHTML = "L'adresse email n'est pas valide";
         }
     }
-    
+     
 }
 //Fonction
-TotalQuantitePrix();
+
 Supprimer();
+TotalQuantitePrix();
 //RegexpPrenom();
 //RegExpNom();
 //RegExpAdresse();
