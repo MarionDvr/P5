@@ -103,86 +103,91 @@ fetch("http://localhost:3000/api/products")
                 divItemDelete.appendChild(pDelete);
                 
                 
-function AjoutQuantite() {
-//Récuperer les input
-const itemQuantity = document.querySelectorAll('.itemQuantity');
-//Parcourir les différents input quantité
-    for (let x = 0; x <itemQuantity.length; x++) {
-//écouter si il y a un changement sur les input
-        itemQuantity[x].addEventListener('change', (event) => {
-//la valeur de l'input est égal à la nouvelle valeur entrée
-            inputItemQuantity.value = event.target.value;
-//Définir que la quantité du produit prend la nouvelle valeur           
-            produit.QuantiteProduit = inputItemQuantity.value;
-//Envoyer les nouvelles données dans le local storage
-            localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
-//Recherger la page
-            window.location.reload();
-        }); 
-    }
-}
-AjoutQuantite();
+                //CHANGEMENT QUANTITE dans les input
+                //écouter si il y a un changement sur les input
+                inputItemQuantity.addEventListener('change', (event) => {
+                        event.preventDefault();
+                        //Récupère l'id dans le local storage
+                        let itemId = produit.idProduit;
+                        //Récupère la couleur dans le local storage
+                        let itemCouleur = produit.CouleurProduit;
+                        //Trouver dans le local storage l'element qui possède le même id et la même couleur
+                        const modifQuantite = DonneesLocalStorage.find((element) => element.idProduit === itemId && element.CouleurProduit === itemCouleur );
+                        //si l'élement est trouvé
+                        if(modifQuantite) {
+                        //La quantité de cet élement est égale à celle présente dans l'input
+                            modifQuantite.QuantiteProduit = Number(inputItemQuantity.value);
 
-function TotalQuantitePrix() {
-    
-//Récupérer les données du local storage
-    let qteDuProduit = DonneesLocalStorage;
-//Calcul de la quantité total
-//Le total commence à 0
-    let totalQte = 0;
-//Calcul du total en ajoutant à celui ci les quantités qui sont des nombres
-    for (let element of qteDuProduit) {
-        totalQte += Number(element.QuantiteProduit);
-    }  
-    
-        
-//Insertion de la quantité total
-    let pTotalQuantity = document.getElementById('totalQuantity');
-    pTotalQuantity.innerHTML = totalQte;
+                //Envoyer les nouvelles données dans le local storage
+                            localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+                        } /*else {
+                            DonneesLocalStorage.push(Canape);
+                            localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+                        }*/
+                //Recherger la page
+                        window.location.reload();
+                    }); 
 
 
-//Récupérer de l'api
-    let prixProduits = products.price;
-    
-//Calcul du total prix par article
-    let totalPrixParProduit = 0;
-    totalPrixParProduit = prixProduits * produit.QuantiteProduit;   
-    
-//Calcul du prix total
-//Le total commence à 0
-    let totalPrix = 0;
-//Calcul total
-    totalPrix =+ totalPrixParProduit;
-   
-    console.log(totalPrix);
-                             
-} 
+
+                //Calcul de la QUANTITE TOTAL
+                //Récupérer les données du local storage
+                let qteDuProduit = DonneesLocalStorage;
+                //Calcul de la quantité total
+                //Le total commence à 0
+                let totalQte = 0;
+                //Calcul du total en ajoutant à celui ci les quantités qui sont des nombres
+                for (let element of qteDuProduit) {
+                    totalQte += Number(element.QuantiteProduit);
+                }  
+                //Insertion de la quantité total
+                let pTotalQuantity = document.getElementById('totalQuantity');
+                pTotalQuantity.innerHTML = totalQte;
 
 
+
+                //Calcul du PRIX TOTAL
+                //Récupérer les prix de l'api
+                let prixProduits = products.price;
                 
-function Supprimer () {
-//Suprimer un article
-    let deleteItem = document.querySelectorAll('.deleteItem');
-    
-    for (let c = 0; c < deleteItem.length; c++) {
-        deleteItem[c].addEventListener('click', (event) => {
-            event.stopImmediatePropagation();
+                //Calcul du total prix par article
+                let totalPrixParProduit = 0;
+                totalPrixParProduit = prixProduits * produit.QuantiteProduit;
+                let tableau = [];
+                tableau.push(totalPrixParProduit);
+                console.log(tableau);
+                //Calcul du prix total
+                //Le total commence à 0
+                let totalPrix = 0;
+                //Calcul total
+                totalPrix =+ totalPrixParProduit;
+                
+                             
+            }
             
-            let idCouleurASupprimer = DonneesLocalStorage[c].idCouleur;
-//Selectionner avec la méthode filter (selectionner les éléments à garder et supprimer l'élement à suppimer)
-            DonneesLocalStorage = DonneesLocalStorage.filter((el)=> el.idCouleur !== idCouleurASupprimer);
-//Renvoyer les données dans le local Storage
-            localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
-//Recharger la page
-            window.location.reload();
-            
+            //SUPPRIMER UN ARTICLE
+            let deleteItem = document.querySelectorAll('.deleteItem');
+                
+            for (let c = 0; c < deleteItem.length; c++) {
+                deleteItem[c].addEventListener('click', (event) => {
+                    event.stopImmediatePropagation();
+                    let idCouleurASupprimer = DonneesLocalStorage[c].idCouleur;
+            //Selectionner avec la méthode filter (selectionner les éléments à garder et supprimer l'élement à suppimer)
+                    DonneesLocalStorage = DonneesLocalStorage.filter((el)=> el.idCouleur !== idCouleurASupprimer);
+            //Renvoyer les données dans le local Storage
+                    localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+            //Recharger la page
+                    window.location.reload();
+                    
+                })
+            }
         })
-    }
- 
 
+    })
+     
+})
 }
-
-
+//REGEXP
 //Déclaration variable pour les regex prenom nom et ville
 let nameCityRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
@@ -279,7 +284,8 @@ function RegExpEmail () {
     });
 //Fonction avec la regexp pour valider l'email
     const validEmail = function(inputEmail){
-        let emailRegExp = new RegExp('^[a-zA-Z0-9\._-]+@[a-zA-Z0-9-_]+\.[a-z]{2-3}$', 'g');
+        //let emailRegExp = new RegExp('^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2,3})$', 'g');
+        let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2,3})$/g);
         let testEmail = emailRegExp.test(inputEmail.value);
 //Variable pour écrire une message de validation ou d'erreur
         let emailErrorMsg = inputEmail.nextElementSibling;
@@ -292,19 +298,8 @@ function RegExpEmail () {
     }
      
 }
-//Fonction
-
-Supprimer();
-TotalQuantitePrix();
-//RegexpPrenom();
-//RegExpNom();
-//RegExpAdresse();
-//RegExpVille();
-//RegExpEmail();
-}
-})
-
-})
-     
-})
-}
+RegexpPrenom();
+RegExpNom();
+RegExpAdresse();
+RegExpVille();
+RegExpEmail();
