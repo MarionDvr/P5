@@ -153,9 +153,7 @@ fetch("http://localhost:3000/api/products")
                 //Calcul du total prix par article
                 let totalPrixParProduit = 0;
                 totalPrixParProduit = prixProduits * produit.QuantiteProduit;
-                let tableau = [];
-                tableau.push(totalPrixParProduit);
-                console.log(tableau);
+                
                 //Calcul du prix total
                 //Le total commence à 0
                 let totalPrix = 0;
@@ -193,7 +191,7 @@ let nameCityRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
 let form = document.querySelector('.cart__order__form');
 
-function RegexpPrenom() {
+
 
 //écouter l'input PRÉNOM
     form.firstName.addEventListener('change', function() {
@@ -213,9 +211,9 @@ function RegexpPrenom() {
             firstNameErrorMsg.innerHTML = "Le prénom n'est pas valide";
         }
     }
-}
 
-function RegExpNom() {
+
+
 //écouter l'input NOM
     form.lastName.addEventListener('change', function() {
         validLastName(this);
@@ -233,10 +231,10 @@ function RegExpNom() {
             lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
         }
     }
-}
 
-function RegExpAdresse () {
-//écouter l'input NOM
+
+
+//écouter l'input ADRESSE
     form.address.addEventListener('change', function() {
         validAddress(this);
     });
@@ -255,10 +253,10 @@ function RegExpAdresse () {
             adressErrorMsg.innerHTML = "L'adresse n'est pas valide";
         }
     }
-}
 
-function RegExpVille () {
-//écouter l'input ville
+
+
+//écouter l'input VILLE
     form.city.addEventListener('change', function() {
         validCity(this);
     });
@@ -275,10 +273,10 @@ function RegExpVille () {
             cityErrorMsg.innerHTML = "La ville n'est pas valide";
         }
     }
-}
 
-function RegExpEmail () {
-//écouter l'input email
+
+
+//écouter l'input EMAIL
     form.email.addEventListener('change', function() {
         validEmail(this);
     });
@@ -297,9 +295,32 @@ function RegExpEmail () {
         }
     }
      
-}
-RegexpPrenom();
-RegExpNom();
-RegExpAdresse();
-RegExpVille();
-RegExpEmail();
+//Ecouter le bouton commander
+order.addEventListener('click', (event) => {
+
+   //if() {
+        //Stockage des informations du formulaire
+        let formulaireAEnvoyer = {
+            firstName: firstName.value,
+            lastName: lastName.value,
+            address: address.value,
+            city: city.value,
+            email: email.value
+            
+            };
+        
+        //Mettre les info du formulaire dans le local storage
+        localStorage.setItem("formulaireAEnvoyer", JSON.stringify(formulaireAEnvoyer));
+
+        /*//Envoyer les données du local storage au server
+        const promise = fetch("http://localhost:3000/order", {
+            method: "POST",
+            body: stringify(formulaireAEnvoyer, DonneesLocalStorage),
+
+        })
+        localStorage.clear();
+        const pageConfirmation = [front/html/confirmation.html];
+        window.location.replace(pageConfirmation);*/
+
+    //}
+})
