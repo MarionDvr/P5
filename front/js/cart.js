@@ -86,9 +86,9 @@ fetch("http://localhost:3000/api/products")
                 let inputItemQuantity = document.createElement('input');
                 inputItemQuantity.classList.add('itemQuantity');
                 divItemsSettingsQuantity.appendChild(inputItemQuantity);
-                inputItemQuantity.dataset.name = 'itemQuantity';
-                inputItemQuantity.dataset.min = '1';
-                inputItemQuantity.dataset.max = '100';
+                inputItemQuantity.setAttribute('name', "itemQuantity");
+                inputItemQuantity.setAttribute('min', '1');
+                inputItemQuantity.setAttribute('max', '100');
                 inputItemQuantity.value = produit.QuantiteProduit;
 
                 //Création de la suppression
@@ -159,7 +159,7 @@ fetch("http://localhost:3000/api/products")
                 let totalPrix = 0;
                 //Calcul total
                 totalPrix =+ totalPrixParProduit;
-                
+                console.log(totalPrix);
                              
             }
             
