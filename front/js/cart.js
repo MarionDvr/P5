@@ -11,6 +11,9 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
 DonneesLocalStorage.forEach(produit => {
 let idKanap = produit.idProduit;
 
+//Calcul du prix total
+                //Le total commence à 0
+                let totalPrix = 0;
     
 //Récupération de l'API
 fetch("http://localhost:3000/api/products")
@@ -66,6 +69,7 @@ fetch("http://localhost:3000/api/products")
                 let pPrice = document.createElement('p');
                 divItemDescription.appendChild(pPrice);
                 pPrice.innerHTML = products.price + '€';
+                let prixProduits = products.price;
 
                 //Création de la div contenant la quantité et la suppression
                 //div parent
@@ -127,7 +131,22 @@ fetch("http://localhost:3000/api/products")
                 //Recherger la page
                         window.location.reload();
                     }); 
+//SUPPRIMER UN ARTICLE
 
+                
+//for (let c = 0; c < deleteItem.length; c++) {
+    pDelete.addEventListener('click', (event) => {
+        event.preventDefault();
+        let idCouleurASupprimer = DonneesLocalStorage.idCouleur;
+//Selectionner avec la méthode filter (selectionner les éléments à garder et supprimer l'élement à suppimer)
+        DonneesLocalStorage = DonneesLocalStorage.filter((el)=> el.idCouleur !== idCouleurASupprimer);
+//Renvoyer les données dans le local Storage
+        localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+//Recharger la page
+        window.location.reload();
+        
+    })
+//}
 
 
                 //Calcul de la QUANTITE TOTAL
@@ -148,37 +167,21 @@ fetch("http://localhost:3000/api/products")
 
                 //Calcul du PRIX TOTAL
                 //Récupérer les prix de l'api
-                let prixProduits = products.price;
+                //
                 
                 //Calcul du total prix par article
-                let totalPrixParProduit = 0;
-                totalPrixParProduit = prixProduits * produit.QuantiteProduit;
+                //let totalPrixParProduit = 0;
+                //totalPrixParProduit = prixProduits * produit.QuantiteProduit;
                 
-                //Calcul du prix total
-                //Le total commence à 0
-                let totalPrix = 0;
+                
                 //Calcul total
-                totalPrix =+ totalPrixParProduit;
-                console.log(totalPrix);
+                totalPrix += inputItemQuantity.value * prixProduits;
+                let totalPrice = document.getElementById('totalPrice');
+                totalPrice.innerHTML = totalPrix;
                              
             }
             
-            //SUPPRIMER UN ARTICLE
-            let deleteItem = document.querySelectorAll('.deleteItem');
-                
-            for (let c = 0; c < deleteItem.length; c++) {
-                deleteItem[c].addEventListener('click', (event) => {
-                    event.stopImmediatePropagation();
-                    let idCouleurASupprimer = DonneesLocalStorage[c].idCouleur;
-            //Selectionner avec la méthode filter (selectionner les éléments à garder et supprimer l'élement à suppimer)
-                    DonneesLocalStorage = DonneesLocalStorage.filter((el)=> el.idCouleur !== idCouleurASupprimer);
-            //Renvoyer les données dans le local Storage
-                    localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
-            //Recharger la page
-                    window.location.reload();
-                    
-                })
-            }
+            
         })
 
     })
