@@ -9,7 +9,13 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
 }else {
 //si le panier n'est pas vide afficher chaque produit du local Storage
 DonneesLocalStorage.forEach(produit => {
-let idKanap = produit.idProduit;
+let Kanap = {
+    id: produit.idProduit,
+    color : produit.CouleurProduit,
+    quantity: produit.QuantiteProduit,
+    idColor: produit.idCouleur
+}
+
 
 //Calcul du prix total
                 //Le total commence à 0
@@ -27,7 +33,7 @@ fetch("http://localhost:3000/api/products")
 
     .then(function(Canape) {
         Canape.forEach(products =>  {
-            if (products._id == idKanap) { 
+            if (products._id == Kanap.id) { 
            
         
 //Création de l'article
@@ -137,11 +143,11 @@ fetch("http://localhost:3000/api/products")
 //for (let c = 0; c < deleteItem.length; c++) {
     pDelete.addEventListener('click', (event) => {
         event.preventDefault();
-        let idCouleurASupprimer = DonneesLocalStorage.idCouleur;
+        let idCouleurASupprimer = Kanap.idColor;
 //Selectionner avec la méthode filter (selectionner les éléments à garder et supprimer l'élement à suppimer)
-        DonneesLocalStorage = DonneesLocalStorage.filter((el)=> el.idCouleur !== idCouleurASupprimer);
+     test = DonneesLocalStorage.filter((el)=> el.idCouleur !== idCouleurASupprimer);
 //Renvoyer les données dans le local Storage
-        localStorage.setItem("produit", JSON.stringify(DonneesLocalStorage));
+        localStorage.setItem("produit", JSON.stringify(test));
 //Recharger la page
         window.location.reload();
         
@@ -173,13 +179,13 @@ fetch("http://localhost:3000/api/products")
                 //let totalPrixParProduit = 0;
                 //totalPrixParProduit = prixProduits * produit.QuantiteProduit;
                 
-                
+               
                 //Calcul total
                 totalPrix += inputItemQuantity.value * prixProduits;
                 let totalPrice = document.getElementById('totalPrice');
                 totalPrice.innerHTML = totalPrix;
                              
-            }
+            } 
             
             
         })
@@ -297,7 +303,7 @@ let form = document.querySelector('.cart__order__form');
             emailErrorMsg.innerHTML = "L'adresse email n'est pas valide";
         }
     }
-     
+ /*    
 //Ecouter le bouton commander
 order.addEventListener('click', (event) => {
 
@@ -315,7 +321,7 @@ order.addEventListener('click', (event) => {
         //Mettre les info du formulaire dans le local storage
         localStorage.setItem("formulaireAEnvoyer", JSON.stringify(formulaireAEnvoyer));
 
-        /*//Envoyer les données du local storage au server
+        //Envoyer les données du local storage au server
         const promise = fetch("http://localhost:3000/order", {
             method: "POST",
             body: stringify(formulaireAEnvoyer, DonneesLocalStorage),
@@ -323,7 +329,7 @@ order.addEventListener('click', (event) => {
         })
         localStorage.clear();
         const pageConfirmation = [front/html/confirmation.html];
-        window.location.replace(pageConfirmation);*/
+        window.location.replace(pageConfirmation);
 
     //}
-})
+}) */
