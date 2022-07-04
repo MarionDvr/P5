@@ -303,11 +303,11 @@ let form = document.querySelector('.cart__order__form');
             emailErrorMsg.innerHTML = "L'adresse email n'est pas valide";
         }
     }
- /*    
+     
 //Ecouter le bouton commander
 order.addEventListener('click', (event) => {
-
-   //if() {
+    event.preventDefault();
+   
         //Stockage des informations du formulaire
         let formulaireAEnvoyer = {
             firstName: firstName.value,
@@ -318,18 +318,32 @@ order.addEventListener('click', (event) => {
             
             };
         
+        
         //Mettre les info du formulaire dans le local storage
         localStorage.setItem("formulaireAEnvoyer", JSON.stringify(formulaireAEnvoyer));
+        //si le local storage n'est pas vide
+        if (DonneesLocalStorage != 0) {
+            //Envoyer les données du local storage au server
+            fetch("http://localhost:3000/api/products/order", {
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json",
+                },
+                body: JSON.stringify(formulaireAEnvoyer, DonneesLocalStorage),
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                window.location.href = '../html/confirmation.html'/*?=' + data.orderId*/;
+                console.log(data)
+            })
+            .catch(function(err) {
+                alert('Une erreur est survenue');
+            });
+            localStorage.clear();
+            
+            
+        }
+            
 
-        //Envoyer les données du local storage au server
-        const promise = fetch("http://localhost:3000/order", {
-            method: "POST",
-            body: stringify(formulaireAEnvoyer, DonneesLocalStorage),
-
-        })
-        localStorage.clear();
-        const pageConfirmation = [front/html/confirmation.html];
-        window.location.replace(pageConfirmation);
-
-    //}
-}) */
+    
+}) 
