@@ -137,22 +137,31 @@ fetch("http://localhost:3000/api/products")
                 //Recherger la page
                         window.location.reload();
                     }); 
-//SUPPRIMER UN ARTICLE
 
+                //SUPPRIMER UN ARTICLE
+                pDelete.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    let idCouleurASupprimer = Kanap.idColor;
+                //Selectionner avec la méthode filter (selectionner les éléments à garder et supprimer l'élement à suppimer)
+                    articleASupprimer = DonneesLocalStorage.filter((el)=> el.idCouleur !== idCouleurASupprimer);
+                //Renvoyer les données dans le local Storage
+                    localStorage.setItem("produit", JSON.stringify(articleASupprimer));
+                //Recharger la page
+                    window.location.reload();
+                        
+                    })
+                //pour envoyer uniquement les id des produits choisis
+                //Mettre dans un tableau uniquement les id des produits
+                let idPoduitChoisi = produit.idProduit;
                 
-//for (let c = 0; c < deleteItem.length; c++) {
-    pDelete.addEventListener('click', (event) => {
-        event.preventDefault();
-        let idCouleurASupprimer = Kanap.idColor;
-//Selectionner avec la méthode filter (selectionner les éléments à garder et supprimer l'élement à suppimer)
-     test = DonneesLocalStorage.filter((el)=> el.idCouleur !== idCouleurASupprimer);
-//Renvoyer les données dans le local Storage
-        localStorage.setItem("produit", JSON.stringify(test));
-//Recharger la page
-        window.location.reload();
-        
-    })
-//}
+                let produitsChoisi = {
+                    id: idPoduitChoisi
+                };
+               
+                console.log(produitsChoisi)
+                //Mettre les id des produits choisis dans le local storage
+                localStorage.setItem("produitsChoisi", JSON.stringify(produitsChoisi));
+                
 
 
                 //Calcul de la QUANTITE TOTAL
@@ -303,6 +312,7 @@ let form = document.querySelector('.cart__order__form');
             emailErrorMsg.innerHTML = "L'adresse email n'est pas valide";
         }
     }
+    
      
 //Ecouter le bouton commander
 order.addEventListener('click', (event) => {
@@ -318,9 +328,9 @@ order.addEventListener('click', (event) => {
             
             };
         
-        
         //Mettre les info du formulaire dans le local storage
         localStorage.setItem("formulaireAEnvoyer", JSON.stringify(formulaireAEnvoyer));
+        
         //si le local storage n'est pas vide
         if (DonneesLocalStorage != 0) {
             //Envoyer les données du local storage au server
@@ -329,12 +339,12 @@ order.addEventListener('click', (event) => {
                 headers: {
                     "Content-Type" : "application/json",
                 },
-                body: JSON.stringify(formulaireAEnvoyer, DonneesLocalStorage),
+                body: JSON.stringify(formulaireAEnvoyer, produitsChoisi),
             })
             .then((res) => res.json())
             .then((data) => {
                 window.location.href = '../html/confirmation.html'/*?=' + data.orderId*/;
-                console.log(data)
+                
             })
             .catch(function(err) {
                 alert('Une erreur est survenue');
