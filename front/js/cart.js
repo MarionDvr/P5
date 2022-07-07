@@ -32,8 +32,8 @@ fetch("http://localhost:3000/api/products")
 //Répartition des valeurs du tableau de l'API sur les élément HTML concerant le canapé
 
     .then(function(Canape) {
-        Canape.forEach(products =>  {
-            if (products._id == Kanap.id) { 
+        //Canape.forEach(products =>  {
+            //if (products._id == Kanap.id) { 
            
         
 //Création de l'article
@@ -50,8 +50,8 @@ fetch("http://localhost:3000/api/products")
                 sectionCartItems.appendChild(divItemImage);
                 //Image
                 let ImageItem = document.createElement('img');
-                ImageItem.src = products.imageUrl;
-                ImageItem.alt = products.altTxt;
+                ImageItem.src = Canape.imageUrl;
+                ImageItem.alt = Canape.altTxt;
                 divItemImage.appendChild(ImageItem);
 
                 //Création de la div contenant les détails du produit
@@ -66,7 +66,7 @@ fetch("http://localhost:3000/api/products")
                 //Titre
                 let h2 = document.createElement('h2');
                 divItemDescription.appendChild(h2);
-                h2.innerHTML = products.name;
+                h2.innerHTML = Canape.name;
                 //Couleur
                 let pColor = document.createElement('p');
                 divItemDescription.appendChild(pColor);
@@ -74,8 +74,8 @@ fetch("http://localhost:3000/api/products")
                 //Prix
                 let pPrice = document.createElement('p');
                 divItemDescription.appendChild(pPrice);
-                pPrice.innerHTML = products.price + '€';
-                let prixProduits = products.price;
+                pPrice.innerHTML = Canape.price + '€';
+                let prixProduits = Canape.price;
 
                 //Création de la div contenant la quantité et la suppression
                 //div parent
@@ -189,23 +189,25 @@ fetch("http://localhost:3000/api/products")
                 //totalPrixParProduit = prixProduits * produit.QuantiteProduit;
                 
                
-                //Calcul total
-                totalPrix += inputItemQuantity.value * prixProduits;
-                let totalPrice = document.getElementById('totalPrice');
-                totalPrice.innerHTML = totalPrix;
-                             
-            } 
+               
+                        //Calcul total prix
+                        totalPrix += inputItemQuantity.value * prixProduits;
+                        let totalPrice = document.getElementById('totalPrice');
+                        totalPrice.innerHTML = totalPrix;
+                              
+            //} 
             
             
-        })
-
+        //})
+        
+       
     })
      
 })
 }
 //REGEXP
 //Déclaration variable pour les regex prenom nom et ville
-let nameCityRegExp = new RegExp('^[A-Za-zéèêôîïû-]+$', 'g');
+let nameCityRegExp = new RegExp(/^[a-zA-Z0-9\s,'-]*$/, 'g');
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
 let form = document.querySelector('.cart__order__form');
 
@@ -219,6 +221,9 @@ let form = document.querySelector('.cart__order__form');
 //Fonction avec la regexp pour valider le prénom
     const validFirstName = function(inputFirstName){
         let testFirstName = nameCityRegExp.test(inputFirstName.value);
+        //if(nameCityRegExp.test(inputFirstName.value)== false) {
+            //firstNameErrorMsg.innerHTML = "Le prénom n'est pas valide";
+        //}
 //Variable pour écrire une message de validation ou d'erreur
         let firstNameErrorMsg = inputFirstName.nextElementSibling;
 //Si testPrénom est vrai = adresse valide
