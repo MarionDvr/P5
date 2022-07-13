@@ -6,6 +6,9 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
     const title = document.querySelector("h1");
     title.innerHTML = "Le panier est vide !";
 } else {
+    //Varaible pour calculer le prix total sans avoir des problèmes liés au boucles
+    //Le total commence à 0
+    let totalPrix = 0;
 //si le panier n'est pas vide afficher chaque produit du local Storage
 //produit fait référence au données du local storage
 
@@ -161,8 +164,7 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
 
 //Calcul du prix total
 
-                    //Le total commence à 0
-                    let totalPrix = 0;
+                    
                     
                     //Calcul total prix
                     totalPrix += prixProduits * Kanap.quantity;
