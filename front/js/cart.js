@@ -17,7 +17,7 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
         }
     
 //Récupération de l'API
-        fetch("http://localhost:3000/api/products") 
+        fetch("http://localhost:3000/api/products/" + Kanap.id) 
         .then(function(res) {
             if (res.ok) {
                 return res.json();
@@ -25,9 +25,9 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
         })
 //Répartition des valeurs du tableau de l'API sur les élément HTML concerant le canapé
 //products fait référence aux données de l'API
-        .then(function(Canape) {
-            Canape.forEach(products =>  {
-                if (products._id == Kanap.id) {
+        .then(function(products) {
+            //Canape.forEach(products =>  {
+                //if (products._id == Kanap.id) {
 //Création du HTML
                     //Création de l'article
                     let sectionCartItems = document.getElementById('cart__items');
@@ -160,11 +160,17 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                     //Le total commence à 0
                     let totalPrix = 0;
                     //Calcul total prix
-                    totalPrix += inputItemQuantity.value * prixProduits;
+                        //totalPrix += inputItemQuantity.value * prixProduits;
+                        for (let element of qteDuProduit) {
+                            totalPrix += Number(element.QuantiteProduit) * prixProduits;
+                        }    
+                        console.log(totalPrix)
+                    
                     let totalPrice = document.getElementById('totalPrice');
-                    totalPrice.innerHTML = totalPrix;
-                }
-            })
+                        totalPrice.innerHTML = totalPrix;
+                    
+                //}
+            //})
         })
 
     })
