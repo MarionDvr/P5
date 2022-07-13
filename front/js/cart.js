@@ -140,12 +140,13 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                     })
 //pour envoyer uniquement les id des produits choisis
                     //Mettre dans un tableau uniquement les id des produits
-                    let idPoduitChoisi = produit.idProduit;
-                    let produitsChoisi = {
-                        id: idPoduitChoisi
+                    
+                    let produitsChoisis = {
+                        productID: Kanap.id
                     };
+                //console.log(produitsChoisi)
                     //Envoyer les id des produits choisis dans le local storage
-                    localStorage.setItem("produitsChoisi", JSON.stringify(produitsChoisi));
+                    localStorage.setItem("produitsChoisi", JSON.stringify(produitsChoisis));
 
 //Calcul de la QUANTITE TOTAL
                     //Récupérer les données du local storage
@@ -163,18 +164,11 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                     
 
 //Calcul du prix total
-
-                    
-                    
                     //Calcul total prix
                     totalPrix += prixProduits * Kanap.quantity;
-                    
-                    
-                    console.log(totalPrix)
+                    //Afficher le prix total
                     let totalPrice = document.getElementById('totalPrice');
                         totalPrice.innerHTML = totalPrix;
-                    
-                    
                 //}
             //})
         })
@@ -218,6 +212,7 @@ let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2
     const validLastName = function(inputLastName){
         let testLastName = nameCityRegExp.test(inputLastName.value);
     //Variable pour écrire une message de validation ou d'erreur
+    //
         let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
     //Si testNom est faux = adresse invalide
         if (testLastName != true){
@@ -270,7 +265,7 @@ let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2
         }
     }
 
-/*
+
 //Ecouter le bouton commander
 order.addEventListener('click', (event) => {
     event.preventDefault();
@@ -286,7 +281,8 @@ order.addEventListener('click', (event) => {
         
     //Mettre les info du formulaire dans le local storage
     localStorage.setItem("formulaireAEnvoyer", JSON.stringify(formulaireAEnvoyer));
-        
+    //Récupérer les produitsChoisis
+    let produitsChoisis = JSON.parse(localStorage.getItem("produitsChoisis"));
     //si le local storage n'est pas vide
     if (DonneesLocalStorage != 0) {
         //Envoyer les données du local storage au server
@@ -295,17 +291,17 @@ order.addEventListener('click', (event) => {
             headers: {
                 "Content-Type" : "application/json",
             },
-            body: JSON.stringify(formulaireAEnvoyer, produitsChoisi),
+            body: JSON.stringify(formulaireAEnvoyer, produitsChoisis),
         })
         .then((res) => res.json())
-        .then((data) => {
+        /*.then((data) => {
             window.location.href = '../html/confirmation.html'/*?=' + data.orderId*/;
         /*})
         .catch(function(err) {
             alert('Une erreur est survenue');
         });
-        localStorage.clear();
+        localStorage.clear();*/
     }
-}) */
+}) 
 
     
