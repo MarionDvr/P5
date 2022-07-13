@@ -8,6 +8,7 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
 } else {
 //si le panier n'est pas vide afficher chaque produit du local Storage
 //produit fait référence au données du local storage
+
     DonneesLocalStorage.forEach(produit => {
         let Kanap = {
             id: produit.idProduit,
@@ -23,7 +24,7 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                 return res.json();
             }
         })
-//Répartition des valeurs du tableau de l'API sur les élément HTML concerant le canapé
+
 //products fait référence aux données de l'API
         .then(function(products) {
             //Canape.forEach(products =>  {
@@ -61,7 +62,7 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                     //Couleur
                     let pColor = document.createElement('p');
                     divItemDescription.appendChild(pColor);
-                    pColor.innerHTML = produit.CouleurProduit;
+                    pColor.innerHTML = Kanap.color;
                     //Prix
                     let pPrice = document.createElement('p');
                     divItemDescription.appendChild(pPrice);
@@ -87,7 +88,7 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                     inputItemQuantity.setAttribute('name', "itemQuantity");
                     inputItemQuantity.setAttribute('min', '1');
                     inputItemQuantity.setAttribute('max', '100');
-                    inputItemQuantity.value = produit.QuantiteProduit;
+                    inputItemQuantity.value = Kanap.quantity;
                     //Création de la suppression
                     //div enfant 2
                     let divItemDelete = document.createElement('div');
@@ -98,6 +99,8 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                     pDelete.classList.add('deleteItem');
                     pDelete.innerHTML = "Supprimer";
                     divItemDelete.appendChild(pDelete);
+
+                    
 
 //CHANGEMENT QUANTITE dans les input
                     //écouter si il y a un changement sur les input
@@ -134,12 +137,12 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                     })
 //pour envoyer uniquement les id des produits choisis
                     //Mettre dans un tableau uniquement les id des produits
-                    /*let idPoduitChoisi = produit.idProduit;
+                    let idPoduitChoisi = produit.idProduit;
                     let produitsChoisi = {
                         id: idPoduitChoisi
                     };
                     //Envoyer les id des produits choisis dans le local storage
-                    localStorage.setItem("produitsChoisi", JSON.stringify(produitsChoisi));*/
+                    localStorage.setItem("produitsChoisi", JSON.stringify(produitsChoisi));
 
 //Calcul de la QUANTITE TOTAL
                     //Récupérer les données du local storage
@@ -157,17 +160,18 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                     
 
 //Calcul du prix total
+
                     //Le total commence à 0
                     let totalPrix = 0;
-                    //Calcul total prix
-                        //totalPrix += inputItemQuantity.value * prixProduits;
-                        for (let element of qteDuProduit) {
-                            totalPrix += Number(element.QuantiteProduit) * prixProduits;
-                        }    
-                        console.log(totalPrix)
                     
+                    //Calcul total prix
+                    totalPrix += prixProduits * Kanap.quantity;
+                    
+                    
+                    console.log(totalPrix)
                     let totalPrice = document.getElementById('totalPrice');
                         totalPrice.innerHTML = totalPrix;
+                    
                     
                 //}
             //})
@@ -176,6 +180,7 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
     })
 
 }
+
 //REGEXP
 //Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
 let form = document.querySelector('.cart__order__form');
