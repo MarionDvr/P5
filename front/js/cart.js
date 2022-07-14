@@ -138,15 +138,14 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
                     //Recharger la page
                         window.location.reload();
                     })
+//_____________________________________________________________________________________________________
 //pour envoyer uniquement les id des produits choisis
                     //Mettre dans un tableau uniquement les id des produits
                     
-                    let produitsChoisis = {
-                        productID: Kanap.id
-                    };
+                   
                 //console.log(produitsChoisi)
                     //Envoyer les id des produits choisis dans le local storage
-                    localStorage.setItem("produitsChoisi", JSON.stringify(produitsChoisis));
+                    //localStorage.setItem("produitsChoisi", JSON.stringify(produitsChoisis));
 
 //Calcul de la QUANTITE TOTAL
                     //Récupérer les données du local storage
@@ -203,14 +202,18 @@ let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2
             firstNameErrorMsg.innerHTML = "Le prénom n'est pas valide";
         }
     }
-
+    let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
+    let LastName = document.getElementById('lastName');
 //écouter l'input NOM
     form.lastName.addEventListener('change', function() {
-        validLastName(this);
+//        validLastName(this);
+        if(nameCityRegExp.test(LastName.value) == false){
+            lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
+        }
     });
 //Fonction avec la regexp pour valider le nom 
-    const validLastName = function(inputLastName){
-        let testLastName = nameCityRegExp.test(inputLastName.value);
+//    const validLastName = function(inputLastName){
+/*        let testLastName = nameCityRegExp.test(inputLastName.value);
     //Variable pour écrire une message de validation ou d'erreur
     //
         let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
@@ -218,7 +221,7 @@ let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2
         if (testLastName != true){
             lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
         }
-    }
+    }*/
 
 //écouter l'input ADRESSE
     form.address.addEventListener('change', function() {
@@ -269,39 +272,46 @@ let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2
 //Ecouter le bouton commander
 order.addEventListener('click', (event) => {
     event.preventDefault();
+    let idProduits = [];
+for(Prod of DonneesLocalStorage){
+    idProduits.push(Prod.idProduit);
+}
    
     //Stockage des informations du formulaire
     let formulaireAEnvoyer = {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        address: address.value,
-        city: city.value,
-        email: email.value
+        contact: {
+            firstName: firstName.value,
+            lastName: LastName.value,
+            address: address.value,
+            city: city.value,
+            email: email.value,
+        },
+        produitsChois: idProduits,
     };
         
     //Mettre les info du formulaire dans le local storage
-    localStorage.setItem("formulaireAEnvoyer", JSON.stringify(formulaireAEnvoyer));
+    //localStorage.setItem("formulaireAEnvoyer", JSON.stringify(formulaireAEnvoyer));
     //Récupérer les produitsChoisis
-    let produitsChoisis = JSON.parse(localStorage.getItem("produitsChoisis"));
+    //let produitsChoisis = JSON.parse(localStorage.getItem("produitsChoisis"));
     //si le local storage n'est pas vide
-    if (DonneesLocalStorage != 0) {
+    //if (DonneesLocalStorage != 0) {
         //Envoyer les données du local storage au server
         fetch("http://localhost:3000/api/products/order", {
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
             },
-            body: JSON.stringify(formulaireAEnvoyer, produitsChoisis),
+            body: JSON.stringify(formulaireAEnvoyer),
         })
         .then((res) => res.json())
-        /*.then((data) => {
-            window.location.href = '../html/confirmation.html'/*?=' + data.orderId*/;
-        /*})
+        .then((data) => {
+            window.location.href = 'confirmation.html?orderId=' + data.orderId;
+        })
         .catch(function(err) {
             alert('Une erreur est survenue');
         });
-        localStorage.clear();*/
-    }
+        //localStorage.clear();
+    //}
 }) 
 
     
