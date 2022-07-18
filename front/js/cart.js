@@ -177,141 +177,102 @@ if(DonneesLocalStorage === null || DonneesLocalStorage == 0){
 }
 
 //REGEXP
-//Récupération de la balise form pour ensuite pouvoir appeler les autres éléments avec leurs noms
+//Récupération de la balise form 
 let form = document.querySelector('.cart__order__form');
-//Déclaration variable pour les regex prenom nom et ville
-let nameCityRegExp = new RegExp(/^[a-zA-Z\s,'-]*$/, 'g');
+//Création de variable pour récupérer les élééments html
+let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
+let firstName = document.getElementById('firstName');
+let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
+let lastName = document.getElementById('lastName');
+let addressErrorMsg = document.getElementById('addressErrorMsg');
+let address = document.getElementById('address');
+let cityErrorMsg = document.getElementById('cityErrorMsg');
+let city = document.getElementById('city');
+let emailErrorMsg = document.getElementById('emailErrorMsg');
+let email = document.getElementById('email');
+//Déclarations variables pour les regex prenom nom et ville
+let firstNameRegExp = new RegExp(/^[a-zA-Z\s,'-]*$/g);
+let lastNameRegExp = new RegExp(/^[a-zA-Z\s,'-]*$/g);
+let cityRegExp = new RegExp(/^[a-zA-Z\s,'-]*$/g);
 //Regexp ADRESSE
 //Explication regExp : ensemble quelconque de chiffre suivit éventuellement d'un espace suivit d'un ensemble quelconque de lettres espaces virgules ou points suivit éventuellement d'un espace
-let adressRegExp = new RegExp('^[0-9 A-Za-z-]{1,40}$', 'g');
+let addressRegExp = new RegExp(/^[0-9 A-Za-z'-]{1,40}$/g);
 //Regexp EMAIL
 let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2,3})$/g);
 
-//écouter l'input PRÉNOM
-    form.firstName.addEventListener('change', function() {
-    //this fait référence à l'input de firstName
-        validFirstName(this);
-    });
-//Fonction avec la regexp pour valider le prénom
-    const validFirstName = function(inputFirstName){
-        let testFirstName = nameCityRegExp.test(inputFirstName.value);
-    //Variable pour écrire une message de validation ou d'erreur
-        let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
-    //Si testPrénom est faux = adresse invalide
-        if (testFirstName != true){
-            firstNameErrorMsg.innerHTML = "Le prénom n'est pas valide";
-        }
+//écouter l'input PRENOM
+form.firstName.addEventListener('change', function() {
+    if(firstNameRegExp.test(firstName.value) == false){
+        firstNameErrorMsg.innerHTML = "Le prénom n'est pas valide";
     }
-    let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
-    let LastName = document.getElementById('lastName');
+});
 //écouter l'input NOM
-    form.lastName.addEventListener('change', function() {
-//        validLastName(this);
-        if(nameCityRegExp.test(LastName.value) == false){
-            lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
-        }
-    });
-//Fonction avec la regexp pour valider le nom 
-//    const validLastName = function(inputLastName){
-/*        let testLastName = nameCityRegExp.test(inputLastName.value);
-    //Variable pour écrire une message de validation ou d'erreur
-    //
-        let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
-    //Si testNom est faux = adresse invalide
-        if (testLastName != true){
-            lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
-        }
-    }*/
+form.lastName.addEventListener('change', function() {
+    if(lastNameRegExp.test(lastName.value) == false){
+        lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
+    }
+});
 
 //écouter l'input ADRESSE
-    form.address.addEventListener('change', function() {
-        validAddress(this);
-    });
-//Fonction avec la regexp pour valider le nom et prénom
-    const validAddress = function(inputAdress){ 
-        let testAdress = adressRegExp.test(inputAdress.value);
-    //Variable pour écrire une message de validation ou d'erreur
-        let adressErrorMsg = document.getElementById('adressErrorMsg');
-    //Si test est faux = adresse invalide
-        if (testAdress != true){
-            adressErrorMsg.innerHTML = "L'adresse n'est pas valide";
-        }
+form.address.addEventListener('change', function() {
+    if(addressRegExp.test(address.value) == false){
+        addressErrorMsg.innerHTML = "L'adresse n'est pas valide";
     }
+});
 
 //écouter l'input VILLE
-    form.city.addEventListener('change', function() {
-        validCity(this);
-    });
-//Fonction avec la regexp pour valider la ville 
-    const validCity = function(inputCity){
-        let testCity = nameCityRegExp.test(inputCity.value);
-    //Variable pour le message d'erreur
-        let cityErrorMsg = document.getElementById('cityErrorMsg');
-    //Si test est faux = adresse invalide
-        if (testCity != true){
-            cityErrorMsg.innerHTML = "La ville n'est pas valide";
-        }
+form.city.addEventListener('change', function() {
+    if(cityRegExp.test(city.value) == false){
+        cityErrorMsg.innerHTML = "La ville n'est pas valide";
     }
+});
 
 //écouter l'input EMAIL
-    form.email.addEventListener('change', function() {
-        validEmail(this);
-    });
-//Fonction avec la regexp pour valider l'email
-    const validEmail = function(inputEmail){
-        let testEmail = emailRegExp.test(inputEmail.value);
-//Variable pour écrire une message de validation ou d'erreur
-        let emailErrorMsg = document.getElementById('emailErrorMsg');
-//Si testEmail est faux = adresse invalide
-        if (testEmail != true){
-            emailErrorMsg.innerHTML = "L'adresse email n'est pas valide";
-        }
+form.email.addEventListener('change', function() {
+    if(emailRegExp.test(email.value) == false){
+        emailErrorMsg.innerHTML = "L'email n'est pas valide";
     }
+});
 
-
+//Définition de la cariable du bouton
+let order = document.getElementById('order');
 //Ecouter le bouton commander
 order.addEventListener('click', (event) => {
     event.preventDefault();
-    let idProduits = [];
-for(Prod of DonneesLocalStorage){
-    idProduits.push(Prod.idProduit);
-}
+    let tableauIdProduits = [];
+    for(element of DonneesLocalStorage){
+        tableauIdProduits.push(element.idProduit);
+    }
    
     //Stockage des informations du formulaire
-    let formulaireAEnvoyer = {
-        contact: {
-            firstName: firstName.value,
-            lastName: LastName.value,
-            address: address.value,
-            city: city.value,
-            email: email.value,
+    let elementsAEnvoyer = {
+        formulaire: {
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            city: city,
+            email: email,
         },
-        produitsChois: idProduits,
+        productID: tableauIdProduits,
     };
         
-    //Mettre les info du formulaire dans le local storage
-    //localStorage.setItem("formulaireAEnvoyer", JSON.stringify(formulaireAEnvoyer));
-    //Récupérer les produitsChoisis
-    //let produitsChoisis = JSON.parse(localStorage.getItem("produitsChoisis"));
-    //si le local storage n'est pas vide
-    //if (DonneesLocalStorage != 0) {
-        //Envoyer les données du local storage au server
-        fetch("http://localhost:3000/api/products/order", {
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json",
-            },
-            body: JSON.stringify(formulaireAEnvoyer),
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            window.location.href = 'confirmation.html?orderId=' + data.orderId;
-        })
-        .catch(function(err) {
-            alert('Une erreur est survenue');
-        });
-        //localStorage.clear();
-    //}
+    //Envoyer les données du local storage au server
+    fetch("http://localhost:3000/api/products/order", {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json",
+        },
+        body: JSON.stringify(elementsAEnvoyer),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        window.location.href = 'confirmation.html?' + data.orderId;
+    })
+    .catch(function(err) {
+        alert('Une erreur est survenue');
+    });
+    localStorage.clear();
+    
 }) 
 
     
