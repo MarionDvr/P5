@@ -236,6 +236,7 @@ form.email.addEventListener('change', function() {
 
 //Définition de la cariable du bouton
 let order = document.getElementById('order');
+
 //Ecouter le bouton commander
 order.addEventListener('click', (event) => {
     event.preventDefault();
