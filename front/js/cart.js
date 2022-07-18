@@ -241,18 +241,18 @@ let order = document.getElementById('order');
 order.addEventListener('click', (event) => {
     event.preventDefault();
     let tableauIdProduits = [];
-    for(element of DonneesLocalStorage){
-        tableauIdProduits.push(element.idProduit);
+    for(canape of DonneesLocalStorage){
+        tableauIdProduits.push(canape.idProduit);
     }
    
     //Stockage des informations du formulaire
     let elementsAEnvoyer = {
         formulaire: {
-            firstName: firstName,
-            lastName: lastName,
-            address: address,
-            city: city,
-            email: email,
+            firstName: firstName.value,
+            lastName: lastName.value,
+            address: address.value,
+            city: city.value,
+            email: email.value,
         },
         productID: tableauIdProduits,
     };
