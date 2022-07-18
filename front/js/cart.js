@@ -248,11 +248,11 @@ order.addEventListener('click', (event) => {
     //Stockage des informations du formulaire
     let elementsAEnvoyer = {
         formulaire: {
-            firstName: firstName.value,
-            lastName: lastName.value,
-            address: address.value,
-            city: city.value,
-            email: email.value,
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            city: city,
+            email: email,
         },
         productID: tableauIdProduits,
     };
