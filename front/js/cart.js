@@ -241,7 +241,7 @@ let order = document.getElementById('order');
 order.addEventListener('click', (event) => {
     event.preventDefault();
     let tableauIdProduits = [];
-    for(canape of DonneesLocalStorage){
+    for(let canape of DonneesLocalStorage){
         tableauIdProduits.push(canape.idProduit);
     }
    
@@ -269,8 +269,8 @@ order.addEventListener('click', (event) => {
     .then((data) => {
         window.location.href = 'confirmation.html?' + data.orderId;
     })
-    .catch(function(err) {
-        alert('Une erreur est survenue');
+    .catch(function(erreur) {
+        alert('Une erreur est survenue'+ erreur);
     });
     localStorage.clear();
     
