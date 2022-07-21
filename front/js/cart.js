@@ -191,24 +191,22 @@ let city = document.getElementById('city');
 let emailErrorMsg = document.getElementById('emailErrorMsg');
 let email = document.getElementById('email');
 //Déclarations variables pour les regex prenom nom et ville
-let firstNameRegExp = new RegExp(/^[a-zA-Z\s,'-]*$/g);
-let lastNameRegExp = new RegExp(/^[a-zA-Z\s,'-]*$/g);
-let cityRegExp = new RegExp(/^[a-zA-Z\s,'-]*$/g);
+let nameCityRegExp = new RegExp(/^[a-zA-Z\s,'-]*$/);
 //Regexp ADRESSE
 //Explication regExp : ensemble quelconque de chiffre suivit éventuellement d'un espace suivit d'un ensemble quelconque de lettres espaces virgules ou points suivit éventuellement d'un espace
-let addressRegExp = new RegExp(/^[0-9 A-Za-z'-]{1,40}$/g);
+let addressRegExp = new RegExp(/^[0-9 A-Za-z'-]{1,40}$/);
 //Regexp EMAIL
-let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2,3})$/g);
+let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2,3})$/);
 
 //écouter l'input PRENOM
 form.firstName.addEventListener('change', function() {
-    if(firstNameRegExp.test(firstName.value) == false){
+    if(nameCityRegExp.test(firstName.value) == false){
         firstNameErrorMsg.innerHTML = "Le prénom n'est pas valide";
     }
 });
 //écouter l'input NOM
 form.lastName.addEventListener('change', function() {
-    if(lastNameRegExp.test(lastName.value) == false){
+    if(nameCityRegExp.test(lastName.value) == false){
         lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
     }
 });
@@ -222,7 +220,7 @@ form.address.addEventListener('change', function() {
 
 //écouter l'input VILLE
 form.city.addEventListener('change', function() {
-    if(cityRegExp.test(city.value) == false){
+    if(nameCityRegExp.test(city.value) == false){
         cityErrorMsg.innerHTML = "La ville n'est pas valide";
     }
 });
@@ -234,46 +232,60 @@ form.email.addEventListener('change', function() {
     }
 });
 
+
+
 //Définition de la cariable du bouton
 let order = document.getElementById('order');
 
 //Ecouter le bouton commander
 order.addEventListener('click', (event) => {
     event.preventDefault();
-    let tableauIdProduits = [];
-    for(let canape of DonneesLocalStorage){
-        tableauIdProduits.push(canape.idProduit);
-    }
-   
-    //Stockage des informations du formulaire
-    let elementsAEnvoyer = {
-        formulaire: {
-            firstName: firstName,
-            lastName: lastName,
-            address: address,
-            city: city,
-            email: email,
-        },
-        productID: tableauIdProduits,
-    };
+    //si les champs de sont pas rempli, mettre un message d'erreur
+    if(!firstName.value || !lastName.value || !address.value || !city.value || !email.value){
+        alert('Tous les champs doivent être remplis');
         
-    //Envoyer les données du local storage au server
-    fetch("http://localhost:3000/api/products/order", {
-        method: "POST",
-        headers: {
-            "Content-Type" : "application/json",
-        },
-        body: JSON.stringify(elementsAEnvoyer),
-    })
-    .then((res) => res.json())
-    .then((data) => {
-        window.location.href = 'confirmation.html?' + data.orderId;
-    })
-    .catch(function(erreur) {
-        alert('Une erreur est survenue'+ erreur);
-    });
-    localStorage.clear();
+    }else{
+
+        //Création tableau pour mettre les id produits à l'intérieur
+        let tableauIdProduits = [];
+        for(let canape of DonneesLocalStorage){
+            tableauIdProduits.push(canape.idProduit);
+        }
+
+   
+        //Stockage des informations du formulaire
+        let elementsAEnvoyer = {
+            contact: {
+                firstName: firstName.value,
+                lastName: lastName.value,
+                address: address.value,
+                city: city.value,
+                email: email.value,
+            },
+            products: tableauIdProduits,
+        };
+        
+        
+        //Envoyer les données du local storage au server
+        fetch("http://localhost:3000/api/products/order", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify(elementsAEnvoyer),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            document.location.href = 'confirmation.html?' + data.orderId;
+        })
+        .catch(function(erreur) {
+            console.log('Une erreur est survenue' + erreur);
+        });
+        localStorage.clear();
     
+    }
 }) 
+
 
     
