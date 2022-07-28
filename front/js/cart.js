@@ -2,9 +2,9 @@
 let donneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
 //si le panier est vide afficher le panier est vide (ou que tous les artciles ont été supprimés)
-if(donneesLocalStorage === null || donneesLocalStorage == 0){
+if(donneesLocalStorage === null || donneesLocalStorage.length === 0){
     const title = document.querySelector("h1");
-    title.innerHTML = "Le panier est vide !";
+    title.innerText = "Le panier est vide !";
 } else {
 
     //Variable pour calculer le prix total sans avoir des problèmes liés au boucles
@@ -60,15 +60,15 @@ if(donneesLocalStorage === null || donneesLocalStorage == 0){
             //Titre
             let h2 = document.createElement('h2');
             divItemDescription.appendChild(h2);
-            h2.innerHTML = products.name;
+            h2.innerText = products.name;
             //Couleur
             let pColor = document.createElement('p');
             divItemDescription.appendChild(pColor);
-            pColor.innerHTML = Kanap.color;
+            pColor.innerText = Kanap.color;
             //Prix
             let pPrice = document.createElement('p');
             divItemDescription.appendChild(pPrice);
-            pPrice.innerHTML = products.price + '€';
+            pPrice.innerText = products.price + '€';
             let prixProduits = products.price;
             //Création de la div contenant la quantité et la suppression
             //div parent
@@ -82,7 +82,7 @@ if(donneesLocalStorage === null || donneesLocalStorage == 0){
             // paragraphe
             let pQuantité = document.createElement('p');
             divItemsSettingsQuantity.appendChild(pQuantité);
-            pQuantité.innerHTML = 'Qté :';
+            pQuantité.innerText = 'Qté :';
             //input
             let inputItemQuantity = document.createElement('input');
             inputItemQuantity.classList.add('itemQuantity');
@@ -99,7 +99,7 @@ if(donneesLocalStorage === null || donneesLocalStorage == 0){
             //Paragraphe
             let pDelete = document.createElement('p');
             pDelete.classList.add('deleteItem');
-            pDelete.innerHTML = "Supprimer";
+            pDelete.innerText = "Supprimer";
             divItemDelete.appendChild(pDelete);
 
 //Changement de quantité dans les input
@@ -147,13 +147,13 @@ if(donneesLocalStorage === null || donneesLocalStorage == 0){
             }  
             //Insertion de la quantité total
             let pTotalQuantity = document.getElementById('totalQuantity');
-            pTotalQuantity.innerHTML = totalQte;
+            pTotalQuantity.innerText = totalQte;
                     
 //Calcul du prix total
             totalPrix += prixProduits * Kanap.quantity;
             //Afficher le prix total
             let totalPrice = document.getElementById('totalPrice');
-            totalPrice.innerHTML = totalPrix;
+            totalPrice.innerText = totalPrix;
         })
     })
 }
@@ -180,36 +180,40 @@ let addressRegExp = new RegExp(/^[0-9 A-Za-z'-]{1,40}$/);
 //Regexp email
 let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2,3})$/);
 
+function regExp() {
 //écouter l'input PRENOM
 form.firstName.addEventListener('change', function() {
     if(nameCityRegExp.test(firstName.value) == false){
-        firstNameErrorMsg.innerHTML = "Le prénom n'est pas valide";
+        firstNameErrorMsg.innerText = "Le prénom n'est pas valide";
     }
 });
 //écouter l'input NOM
 form.lastName.addEventListener('change', function() {
     if(nameCityRegExp.test(lastName.value) == false){
-        lastNameErrorMsg.innerHTML = "Le nom n'est pas valide";
+        lastNameErrorMsg.innerText = "Le nom n'est pas valide";
     }
 });
 //écouter l'input ADRESSE
 form.address.addEventListener('change', function() {
     if(addressRegExp.test(address.value) == false){
-        addressErrorMsg.innerHTML = "L'adresse n'est pas valide";
+        addressErrorMsg.innerText = "L'adresse n'est pas valide";
     }
 });
 //écouter l'input VILLE
 form.city.addEventListener('change', function() {
     if(nameCityRegExp.test(city.value) == false){
-        cityErrorMsg.innerHTML = "La ville n'est pas valide";
+        cityErrorMsg.innerText = "La ville n'est pas valide";
     }
 });
 //écouter l'input EMAIL
 form.email.addEventListener('change', function() {
     if(emailRegExp.test(email.value) == false){
-        emailErrorMsg.innerHTML = "L'email n'est pas valide";
+        emailErrorMsg.innerText = "L'email n'est pas valide";
     }
 });
+}
+
+regExp();
 
 //Définition de la variable pour récupérer le bouton
 let order = document.getElementById('order');
@@ -219,7 +223,12 @@ order.addEventListener('click', (event) => {
     //si les champs ne sont pas rempli, mettre un message d'erreur
     if(!firstName.value || !lastName.value || !address.value || !city.value || !email.value){
         alert('Tous les champs doivent être remplis');
-    }else{
+    //si les champs ne sont pas correctement rempli
+    }else if(!regExp()){
+        alert('Tous les champs doivent être remplis correctement');
+        window.location.reload();
+    }
+    else{
         //Création tableau pour mettre les id produits à l'intérieur
         let tableauIdProduits = [];
         for(let canape of donneesLocalStorage){
@@ -251,7 +260,7 @@ order.addEventListener('click', (event) => {
             document.location.href = 'confirmation.html?' + data.orderId;
         })
         .catch(function(erreur) {
-            console.log('Une erreur est survenue' + erreur);
+            console.error('Une erreur est survenue' + erreur);
         });
         localStorage.clear();
     }

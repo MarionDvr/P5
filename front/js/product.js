@@ -37,7 +37,7 @@ fetch("http://localhost:3000/api/products")
                     let baliseCouleur = document.createElement('option');
                     choisirCouleur.appendChild(baliseCouleur);
                     baliseCouleur.value = couleurs;
-                    baliseCouleur.innerHTML = couleurs;
+                    baliseCouleur.innerText = couleurs;
                 })
                 //Écouter le choix de la couleur
                 let selectColor = document.getElementById('colors');
@@ -96,6 +96,10 @@ fetch("http://localhost:3000/api/products")
         
         })
     })
+    //Affichage du message d'erreur
+    .catch(function(erreur) {
+        console.error('Une erreur est survenue' + erreur);
+    });
                 
    
             

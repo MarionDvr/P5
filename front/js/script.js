@@ -37,7 +37,7 @@ fetch('http://localhost:3000/api/products')
 
   //Affichage du message d'erreur
   .catch(function(erreur) {
-      console.log('Une erreur est survenue' + erreur);
+      console.error('Une erreur est survenue' + erreur);
   });
   
 
