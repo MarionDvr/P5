@@ -181,37 +181,37 @@ let addressRegExp = new RegExp(/^[0-9 A-Za-z'-]{1,40}$/);
 let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2,3})$/);
 
 function regExp() {
-//écouter l'input PRENOM
-form.firstName.addEventListener('change', function() {
-    if(nameCityRegExp.test(firstName.value) == false){
-        firstNameErrorMsg.innerText = "Le prénom n'est pas valide";
+    //écouter l'input PRENOM
+    form.firstName.addEventListener('change', function() {
+        if(nameCityRegExp.test(firstName.value) == false){
+            firstNameErrorMsg.innerText = "Le prénom n'est pas valide";
+        }
+    });
+    //écouter l'input NOM
+    form.lastName.addEventListener('change', function() {
+        if(nameCityRegExp.test(lastName.value) == false){
+            lastNameErrorMsg.innerText = "Le nom n'est pas valide";
+        }
+    });
+    //écouter l'input ADRESSE
+    form.address.addEventListener('change', function() {
+        if(addressRegExp.test(address.value) == false){
+            addressErrorMsg.innerText = "L'adresse n'est pas valide";
+        }
+    });
+    //écouter l'input VILLE
+    form.city.addEventListener('change', function() {
+        if(nameCityRegExp.test(city.value) == false){
+            cityErrorMsg.innerText = "La ville n'est pas valide";
+        }
+    });
+    //écouter l'input EMAIL
+    form.email.addEventListener('change', function() {
+        if(emailRegExp.test(email.value) == false){
+            emailErrorMsg.innerText = "L'email n'est pas valide";
+        }
+    });
     }
-});
-//écouter l'input NOM
-form.lastName.addEventListener('change', function() {
-    if(nameCityRegExp.test(lastName.value) == false){
-        lastNameErrorMsg.innerText = "Le nom n'est pas valide";
-    }
-});
-//écouter l'input ADRESSE
-form.address.addEventListener('change', function() {
-    if(addressRegExp.test(address.value) == false){
-        addressErrorMsg.innerText = "L'adresse n'est pas valide";
-    }
-});
-//écouter l'input VILLE
-form.city.addEventListener('change', function() {
-    if(nameCityRegExp.test(city.value) == false){
-        cityErrorMsg.innerText = "La ville n'est pas valide";
-    }
-});
-//écouter l'input EMAIL
-form.email.addEventListener('change', function() {
-    if(emailRegExp.test(email.value) == false){
-        emailErrorMsg.innerText = "L'email n'est pas valide";
-    }
-});
-}
 
 regExp();
 
