@@ -180,7 +180,6 @@ let addressRegExp = new RegExp(/^[0-9 A-Za-z'-]{1,40}$/);
 //Regexp email
 let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2,3})$/);
 
-function regExp() {
     //écouter l'input PRENOM
     form.firstName.addEventListener('change', function() {
         if(nameCityRegExp.test(firstName.value) == false){
@@ -211,9 +210,7 @@ function regExp() {
             emailErrorMsg.innerText = "L'email n'est pas valide";
         }
     });
-    }
 
-regExp();
 
 //Définition de la variable pour récupérer le bouton
 let order = document.getElementById('order');
@@ -224,11 +221,11 @@ order.addEventListener('click', (event) => {
     if(!firstName.value || !lastName.value || !address.value || !city.value || !email.value){
         alert('Tous les champs doivent être remplis');
     //si les champs ne sont pas correctement rempli
-    }else if(!regExp()){
+    } else if(!nameCityRegExp.test(firstName.value) || !nameCityRegExp.test(lastName.value) || !addressRegExp.test(address.value) || !nameCityRegExp.test(city.value) || !emailRegExp.test(email.value)){
         alert('Tous les champs doivent être remplis correctement');
         window.location.reload();
     }
-    else{
+    else {
         //Création tableau pour mettre les id produits à l'intérieur
         let tableauIdProduits = [];
         for(let canape of donneesLocalStorage){
