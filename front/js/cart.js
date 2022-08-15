@@ -174,9 +174,9 @@ let emailErrorMsg = document.getElementById('emailErrorMsg');
 let email = document.getElementById('email');
 
 //Déclarations variables pour les regex prenom nom et ville
-let nameCityRegExp = new RegExp(/^[a-zA-Z\s,'-]*$/);
+let nameCityRegExp = new RegExp(/^[a-zA-Zéèôï\s,'-]*$/);
 //Regexp adresse
-let addressRegExp = new RegExp(/^[0-9 A-Za-z'-]{1,40}$/);
+let addressRegExp = new RegExp(/^[0-9 a-zA-Zéèôïêô,'-]{1,40}$/);
 //Regexp email
 let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2,3})$/);
 
@@ -184,12 +184,15 @@ let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2
     form.firstName.addEventListener('change', function() {
         if(nameCityRegExp.test(firstName.value) == false){
             firstNameErrorMsg.innerText = "Le prénom n'est pas valide";
+            
         }
     });
     //écouter l'input NOM
     form.lastName.addEventListener('change', function() {
         if(nameCityRegExp.test(lastName.value) == false){
             lastNameErrorMsg.innerText = "Le nom n'est pas valide";
+            lastName.value = "";
+            return;
         }
     });
     //écouter l'input ADRESSE
@@ -243,7 +246,7 @@ order.addEventListener('click', (event) => {
             products: tableauIdProduits,
         };
         
-        //Envoyer les données du local storage au server
+        //Envoyer les données au server
         fetch("http://localhost:3000/api/products/order", {
             method: "POST",
             headers: {
