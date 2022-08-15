@@ -70,10 +70,12 @@ fetch("http://localhost:3000/api/products")
                     //Si aucune quantité n'est choisie, afficher un message d'erreur
                     if(productQuantity == 0) {
                         alert('Veuillez choisir une quantité');
+                        return;
                     }
                     //Si aucune couleur n'est choisie, afficher un messgae d'erreur
                     if(productColor == ""){
                         alert('Veuillez choisir une couleur');
+                        return;
                     }
                     //Récupération du tableau
                     let donneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
