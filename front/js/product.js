@@ -48,10 +48,15 @@ fetch("http://localhost:3000/api/products")
                 let inputNumber = document.getElementById('quantity');
                 inputNumber.addEventListener('input', function(event){
                     event.target.value;
+                    if(inputNumber.value > 100 || inputNumber.value < 1){
+                        alert('La quantité de peut pas être supérieure à 100 ou inférieur à 1');
+                        inputNumber.value = "0";
+                    }
                 });
                 //Trouver le bouton et l'écouter
                 let addToCart = document.getElementById('addToCart');
                 addToCart.addEventListener('click', function() {
+                    
                     // Création variables pour le tableau
                     let productColor = selectColor.value;
                     let productQuantity = inputNumber.value;
@@ -62,6 +67,14 @@ fetch("http://localhost:3000/api/products")
                         quantiteProduit: productQuantity,
                         idCouleur: id + productColor
                     };
+                    //Si aucune quantité n'est choisie, afficher un message d'erreur
+                    if(productQuantity == 0) {
+                        alert('Veuillez choisir une quantité');
+                    }
+                    //Si aucune couleur n'est choisie, afficher un messgae d'erreur
+                    if(productColor == ""){
+                        alert('Veuillez choisir une couleur');
+                    }
                     //Récupération du tableau
                     let donneesLocalStorage = JSON.parse(localStorage.getItem("produit"));
                     //Si le tableau n'est pas vide
@@ -82,8 +95,9 @@ fetch("http://localhost:3000/api/products")
                             //La transformation en format JSON de la clef produit du local storage
                             localStorage.setItem("produit", JSON.stringify(donneesLocalStorage));
                         } 
+                   
                     //Si il n'y a pas de données dans le local storage
-                    } else {
+                    }else {
                         //Créer le tableau pour mettre les info du produit
                         donneesLocalStorage =[];
                         //Ajout du produit selectionné dans le tableau donneesLocalStorage
@@ -91,6 +105,7 @@ fetch("http://localhost:3000/api/products")
                         //La transformation en format JSON de la clef produit du local storage
                         localStorage.setItem("produit", JSON.stringify(donneesLocalStorage));
                     }
+                    
                 })
             }
         

@@ -106,6 +106,10 @@ if(donneesLocalStorage === null || donneesLocalStorage.length === 0){
             //écouter si il y a un changement sur les input
             inputItemQuantity.addEventListener('change', (event) => {
                 event.preventDefault();
+                if(inputItemQuantity.value < 1 || inputItemQuantity.value > 100){
+                    alert("La quantité choisie n'est pas valide");
+                    inputItemQuantity.value = "1";
+                }
                 //Récupère l'id dans le local storage
                 let itemId = produit.idProduit;
                 //Récupère la couleur dans le local storage
@@ -141,10 +145,17 @@ if(donneesLocalStorage === null || donneesLocalStorage.length === 0){
             let quantiteDuProduit = donneesLocalStorage;
             //Le total commence à 0
             let totalQte = 0;
+            
             //Calcul du total en ajoutant à celui-ci les quantités sous forme de nombres
             for (let element of quantiteDuProduit) {
                 totalQte += Number(element.quantiteProduit);
-            }  
+            } 
+            //Si le nombre total d'articles est supérieur à 100, affciher un message d'erreur de mettre les quantités à 1
+            if(totalQte > 100){
+                alert('Vous ne pouvez pas commander plus de 100 articles, votre panier va être vidé');
+                localStorage.clear();
+                window.location.reload();
+            }
             //Insertion de la quantité total
             let pTotalQuantity = document.getElementById('totalQuantity');
             pTotalQuantity.innerText = totalQte;
