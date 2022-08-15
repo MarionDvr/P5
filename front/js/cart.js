@@ -184,33 +184,40 @@ let emailRegExp = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-z]{2
     form.firstName.addEventListener('change', function() {
         if(nameCityRegExp.test(firstName.value) == false){
             firstNameErrorMsg.innerText = "Le prénom n'est pas valide";
-            
+        }else {
+            firstNameErrorMsg.innerText = "";
         }
     });
     //écouter l'input NOM
     form.lastName.addEventListener('change', function() {
         if(nameCityRegExp.test(lastName.value) == false){
             lastNameErrorMsg.innerText = "Le nom n'est pas valide";
-            lastName.value = "";
-            return;
+        }else {
+            lastNameErrorMsg.innerText = "";
         }
     });
     //écouter l'input ADRESSE
     form.address.addEventListener('change', function() {
         if(addressRegExp.test(address.value) == false){
             addressErrorMsg.innerText = "L'adresse n'est pas valide";
+        }else {
+            addressErrorMsg.innerText = "";
         }
     });
     //écouter l'input VILLE
     form.city.addEventListener('change', function() {
         if(nameCityRegExp.test(city.value) == false){
             cityErrorMsg.innerText = "La ville n'est pas valide";
+        }else {
+            cityErrorMsg.innerText = "";
         }
     });
     //écouter l'input EMAIL
     form.email.addEventListener('change', function() {
         if(emailRegExp.test(email.value) == false){
             emailErrorMsg.innerText = "L'email n'est pas valide";
+        }else {
+            emailErrorMsg.innerText = "";
         }
     });
 
